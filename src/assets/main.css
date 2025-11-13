@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+@import 'tailwindcss';
+@plugin "daisyui";
+
+@theme {
+  --font-title: 'Bungee', sans-serif;
+}
+
+:root {
+  --color-primary: #3f9441;
+  --color-secondary: #1b581f;
+}
