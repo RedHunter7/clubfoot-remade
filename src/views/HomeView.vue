@@ -16,9 +16,23 @@ import HeroWithFigure from '@/components/HeroWithFigure.vue'
       </div>
     </div>
 
-    <HeroWithFigure />
-    <HeroWithFigure />
-    <HeroWithFigure />
+    <HeroWithFigure
+      header="Get the latest league information"
+      paragraph="See the latest league information about standings, schedule and match result"
+      imageName="league_icon"
+    />
+    <HeroWithFigure
+      isReverse
+      header="Browse various clubs"
+      paragraph="Explore various clubs and get the latest club information about squad, schedule and result"
+      imageName="club_icon"
+    />
+    <HeroWithFigure
+      header="Suscribe your favorite club"
+      paragraph="Suscribe your club to get notification about your club match schedule and match result"
+      imageName="picture_save"
+      :imageBgOpacity="0"
+    />
   </main>
 </template>
 

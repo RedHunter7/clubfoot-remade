@@ -3,6 +3,7 @@ import IconPremierLeague from './icons/leagues/IconPremierLeague.vue'
 import IconSerieA from './icons/leagues/IconSerieA.vue'
 import IconLaLiga from './icons/leagues/IconLaLiga.vue'
 import IconBundesliga from './icons/leagues/IconBundesliga.vue'
+import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -11,7 +12,7 @@ import IconBundesliga from './icons/leagues/IconBundesliga.vue'
   text-white shadow-sm px-8"
   >
     <div className="flex-1">
-      <a className="btn btn-ghost text-3xl font-title">CLUB FOOT</a>
+      <RouterLink to="/" class="btn btn-ghost text-3xl font-title"> CLUB FOOT </RouterLink>
     </div>
     <div className="flex-none pr-8">
       <ul className="menu menu-horizontal text-xl px-1 gap-x-8">
@@ -20,18 +21,24 @@ import IconBundesliga from './icons/leagues/IconBundesliga.vue'
             <summary>League</summary>
             <ul className="bg-secondary w-52 text-base rounded-t-none p-2">
               <li>
-                <a class="flex gap-x-4 h-10">
+                <RouterLink to="/league" class="flex gap-x-4 h-10">
                   <IconPremierLeague class="size-6" /> Premier League
-                </a>
+                </RouterLink>
               </li>
               <li>
-                <a class="flex gap-x-4 h-10"> <IconSerieA class="size-6" /> Serie A </a>
+                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                  <IconSerieA class="size-6" /> Serie A
+                </RouterLink>
               </li>
               <li>
-                <a class="flex gap-x-4 h-10"> <IconLaLiga class="size-6" /> La Liga </a>
+                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                  <IconLaLiga class="size-6" /> La Liga
+                </RouterLink>
               </li>
               <li>
-                <a class="flex gap-x-4 h-10"> <IconBundesliga class="size-6" /> Bundesliga </a>
+                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                  <IconBundesliga class="size-6" /> Bundesliga
+                </RouterLink>
               </li>
             </ul>
           </details>
@@ -39,9 +46,9 @@ import IconBundesliga from './icons/leagues/IconBundesliga.vue'
         <li>
           <details>
             <summary>Club</summary>
-            <ul className="bg-secondary w-56 rounded-t-none p-2">
-              <li><a>Search CLub</a></li>
-              <li><a>Saved CLub</a></li>
+            <ul className="bg-secondary w-32 rounded-t-none p-2">
+              <li><a>Search</a></li>
+              <li><a>Saved</a></li>
             </ul>
           </details>
         </li>
