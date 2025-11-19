@@ -9,5 +9,7 @@
 
 :root {
   --color-primary: #3f9441;
+  --color-primary-content: #e1f2e1;
   --color-secondary: #1b581f;
+  --color-base-300: #c4c4c4;
 }
