@@ -47,8 +47,12 @@ import { RouterLink } from 'vue-router'
           <details>
             <summary>Club</summary>
             <ul className="bg-secondary w-32 rounded-t-none p-2">
-              <li><a>Search</a></li>
-              <li><a>Saved</a></li>
+              <li>
+                <RouterLink to="/club">Search</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/saved-club">Saved</RouterLink>
+              </li>
             </ul>
           </details>
         </li>

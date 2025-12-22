@@ -21,7 +21,8 @@
     "@tailwindcss/vite": "^4.1.17",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.3",
+    "vue3-carousel": "^0.17.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",
