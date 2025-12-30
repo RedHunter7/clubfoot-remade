@@ -18,3 +18,12 @@
 html {
   background-color: var(--color-primary);
 }
+
+.carousel {
+  --vc-nav-background: transparent;
+  --vc-nav-color: var(--color-secondary);
+  --vc-nav-color-hover: var(--color-primary);
+  --vc-nav-border-radius: 50%;
+  --vc-nav-width: 60px;
+  --vc-nav-height: 60px;
+}

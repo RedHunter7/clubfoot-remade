@@ -7,7 +7,7 @@ for (let index = 0; index < 20; index++) {
 type Club = {
   position: string
   team: {
-    name: string
+    crest: string
     shortName: string
   }
   playedGames: number
@@ -48,7 +48,15 @@ const props = defineProps({
           class="odd:bg-base-300/10 hover:text-secondary odd:hover:bg-white even:hover:bg-primary-content"
         >
           <th>{{ club.position }}</th>
-          <td>{{ club.team.shortName }}</td>
+          <td class="flex flex-row gap-x-2">
+            <img
+              :src="club.team.crest"
+              :alt="`${club.team.shortName} Crest`"
+              width="20"
+              height="20"
+            />
+            <div>{{ club.team.shortName }}</div>
+          </td>
           <td>{{ club.playedGames }}</td>
           <td>{{ club.won }}</td>
           <td>{{ club.draw }}</td>

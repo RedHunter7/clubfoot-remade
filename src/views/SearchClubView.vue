@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ClubCard from '@/components/ClubCard.vue'
+import ClubCard from '@/components/cards/ClubCard.vue'
 import IconSearch from '@/components/icons/IconSearch.vue'
 </script>
 

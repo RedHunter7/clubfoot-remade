@@ -1,30 +1,51 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import LeagueTable from '@/components/LeagueTable.vue'
+import MatchCard from '@/components/cards/MatchCard.vue'
 
 import 'vue3-carousel/carousel.css'
-import { Carousel, Slide } from 'vue3-carousel'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 
 import { useLeagueStandingStore } from '@/stores/leagues/LeagueStanding'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
-
-const images = Array.from({ length: 10 }, (_, index) => ({
-  id: index + 1,
-  url: `https://picsum.photos/seed/${Math.random()}/800/600`,
-}))
+import { onMounted, watch } from 'vue'
+import { useLeagueMatchesStore } from '@/stores/leagues/LeagueMatches'
 
 const config = {
   height: 200,
-  itemsToShow: 2,
-  gap: 5,
+  itemsToShow: 3,
+  gap: 2,
+  autoplay: 2000,
+  wrapAround: true,
+  pauseAutoplayOnHover: true,
+  mouseWheel: true,
 }
 
 const leagueStandingStore = useLeagueStandingStore()
+const leagueStanding = storeToRefs(leagueStandingStore)
 
-const { data, isLoading, error } = storeToRefs(leagueStandingStore)
+const leagueMatchesStore = useLeagueMatchesStore()
+const leagueMatches = storeToRefs(leagueMatchesStore)
+
+const route = useRoute()
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    const leagueCode = newId as string
+    leagueStandingStore.fetchLeagueStanding(leagueCode)
+
+    const currentMatchday = leagueStanding.data.value.currentMatchday
+    leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
+  },
+)
 
 onMounted(() => {
-  leagueStandingStore.fetchLeagueStanding()
+  const leagueCode = route.params.id as string
+  leagueStandingStore.fetchLeagueStanding(leagueCode)
+
+  const currentMatchday = leagueStanding.data.value.currentMatchday
+  leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
 })
 </script>
 
@@ -33,26 +54,39 @@ onMounted(() => {
     <div class="flex flex-row h-[calc(100vh_-_72px)]">
       <div class="w-2/5 my-8">
         <div class="bg-base-100 w-3/4 h-48 rounded-xl mx-auto flex items-center">
-          <img src="@/assets/images/custom-club.svg" class="fill-white size-32 mx-auto" srcset="" />
+          <img
+            :src="leagueStanding.data.value.competition.emblem"
+            class="fill-white size-40 mx-auto"
+            srcset=""
+          />
         </div>
         <div class="text-center text-white text-2xl my-4">
-          <div>Defending Champions</div>
-          <img src="@/assets/images/custom-club.svg" class="fill-white" srcset="" />
-          <div>Liverpool</div>
+          <div>{{ leagueStanding.data.value.competition.name }}</div>
+          <img
+            :src="leagueStanding.data.value.area.flag"
+            class="fill-white w-64 mx-auto my-4 border-2 border-secondary"
+            srcset=""
+          />
+          <div>{{ leagueStanding.data.value.area.name }}</div>
         </div>
       </div>
       <div class="w-3/5">
-        <div v-if="isLoading" className="skeleton h-full w-full"></div>
-        <p v-else-if="error" class="error">{{ error }}</p>
-        <LeagueTable v-else :data="data.leagueTable" />
+        <div v-if="leagueStanding.isLoading.value" className="skeleton h-full w-full"></div>
+        <p v-else-if="leagueStanding.error.value" class="error">{{ leagueStanding.error.value }}</p>
+        <LeagueTable v-else :data="leagueStanding.data.value.leagueTable" />
       </div>
     </div>
     <div class="text-center py-8">
-      <h3 class="text-white text-2xl my-4">Matchday {{ data.currentMatchday }}</h3>
-      <Carousel class="w-5/6 mx-auto" v-bind="config">
-        <Slide v-for="image in images" :key="image.id">
-          <img :src="image.url" alt="image" />
+      <h3 class="text-white text-2xl my-4">
+        Matchday {{ leagueStanding.data.value.currentMatchday }}
+      </h3>
+      <Carousel class="w=full" v-bind="config">
+        <Slide v-for="match in leagueMatches.data.value" :key="match">
+          <MatchCard :data="match" />
         </Slide>
+        <template #addons>
+          <Navigation />
+        </template>
       </Carousel>
     </div>
   </div>

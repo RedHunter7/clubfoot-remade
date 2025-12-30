@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import PlayerCard from '@/components/PlayerCard.vue'
-import CoachCard from '@/components/CoachCard.vue'
+import PlayerCard from '@/components/cards/PlayerCard.vue'
+import CoachCard from '@/components/cards/CoachCard.vue'
 </script>
 
 <template>

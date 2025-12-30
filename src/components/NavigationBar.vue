@@ -21,22 +21,22 @@ import { RouterLink } from 'vue-router'
             <summary>League</summary>
             <ul className="bg-secondary w-52 text-base rounded-t-none p-2">
               <li>
-                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                <RouterLink to="/league/PL" class="flex gap-x-4 h-10">
                   <IconPremierLeague class="size-6" /> Premier League
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                <RouterLink to="/league/SA" class="flex gap-x-4 h-10">
                   <IconSerieA class="size-6" /> Serie A
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                <RouterLink to="/league/PD" class="flex gap-x-4 h-10">
                   <IconLaLiga class="size-6" /> La Liga
                 </RouterLink>
               </li>
               <li>
-                <RouterLink to="/league" class="flex gap-x-4 h-10">
+                <RouterLink to="/league/BL1" class="flex gap-x-4 h-10">
                   <IconBundesliga class="size-6" /> Bundesliga
                 </RouterLink>
               </li>
