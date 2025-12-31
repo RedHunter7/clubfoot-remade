@@ -33,19 +33,19 @@ watch(
   () => route.params.id,
   (newId) => {
     const leagueCode = newId as string
-    leagueStandingStore.fetchLeagueStanding(leagueCode)
-
-    const currentMatchday = leagueStanding.data.value.currentMatchday
-    leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
+    leagueStandingStore.fetchLeagueStanding(leagueCode).then(() => {
+      const currentMatchday = leagueStanding.data.value.currentMatchday
+      leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
+    })
   },
 )
 
 onMounted(() => {
   const leagueCode = route.params.id as string
-  leagueStandingStore.fetchLeagueStanding(leagueCode)
-
-  const currentMatchday = leagueStanding.data.value.currentMatchday
-  leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
+  leagueStandingStore.fetchLeagueStanding(leagueCode).then(() => {
+    const currentMatchday = leagueStanding.data.value.currentMatchday
+    leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
+  })
 })
 </script>
 

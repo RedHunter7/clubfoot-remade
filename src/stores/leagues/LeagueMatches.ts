@@ -18,7 +18,7 @@ export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
 
       data.value = response.data.matches
 
-      // console.log(data.value)
+      console.log(data.value)
     } catch (err) {
       if (err instanceof Error) {
         error.value = 'Failed to fetch data: ' + err.message
