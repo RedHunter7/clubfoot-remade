@@ -16,7 +16,7 @@ export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
       flag: ''
     },
   });
-  const isLoading = ref(false);
+  const isLoading = ref(true);
   const error = ref<string | null>(null)
 
   async function fetchLeagueStanding(leagueCode: string) {
