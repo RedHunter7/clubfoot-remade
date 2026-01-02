@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import LeagueTable from '@/components/LeagueTable.vue'
+import LeagueTable from '@/components/tables/LeagueTable.vue'
+import LeagueTableHeader from '@/components/tables/LeagueTableHeader.vue'
 import MatchCard from '@/components/cards/MatchCard.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 import 'vue3-carousel/carousel.css'
 import { Carousel, Slide, Navigation } from 'vue3-carousel'
@@ -58,6 +60,9 @@ onMounted(() => {
             v-if="leagueStanding.isLoading.value"
             className="skeleton size-full animate-pulse"
           ></div>
+          <div v-else-if="leagueStanding.error.value" class="mx-auto">
+            <ErrorMessage :message="leagueStanding.error.value" />
+          </div>
           <img
             v-else-if="leagueStanding.data.value"
             :src="leagueStanding.data.value.competition.emblem"
@@ -71,6 +76,9 @@ onMounted(() => {
             <div class="skeleton w-64 h-40 mx-auto my-4"></div>
             <div className="skeleton w-48 h-8 mx-auto"></div>
           </div>
+          <div v-else-if="leagueStanding.error.value" class="mt-16 text-lg">
+            <ErrorMessage :message="leagueStanding.error.value" />
+          </div>
           <div v-else-if="leagueStanding.data.value">
             <div>{{ leagueStanding.data.value.competition.name }}</div>
             <img
@@ -83,33 +91,23 @@ onMounted(() => {
         </div>
       </div>
       <div class="w-3/5">
-        <div v-if="leagueStanding.isLoading.value" className="overflow-x-scroll h-full">
-          <table className="table">
-            <thead class="text-white">
-              <tr>
-                <th>#</th>
-                <th>Club</th>
-                <th>P</th>
-                <th>W</th>
-                <th>D</th>
-                <th>L</th>
-                <th>GD</th>
-                <th>PTS</th>
-              </tr>
-            </thead>
-          </table>
+        <div v-if="leagueStanding.isLoading.value" class="overflow-x-scroll h-full">
+          <LeagueTableHeader />
           <div v-for="n in 16" :key="n">
             <div class="animate-pulse skeleton w-full h-10 my-2"></div>
           </div>
         </div>
-        <p v-else-if="leagueStanding.error.value" class="error">{{ leagueStanding.error.value }}</p>
+        <div v-else-if="leagueStanding.error.value" class="overflow-x-scroll h-full">
+          <LeagueTableHeader />
+          <div class="mt-32 text-white">
+            <ErrorMessage :message="leagueStanding.error.value" />
+          </div>
+        </div>
         <LeagueTable v-else :data="leagueStanding.data.value.leagueTable" />
       </div>
     </div>
-    <div class="text-center py-8 w-full">
-      <h3 class="text-white text-2xl my-4">
-        Matchday {{ leagueStanding.data.value.currentMatchday }}
-      </h3>
+    <div class="text-center text-white py-8 w-full">
+      <h3 class="text-2xl my-4">Matchday {{ leagueStanding.data.value.currentMatchday }}</h3>
       <Carousel
         v-if="leagueStanding.isLoading.value || leagueMatches.isLoading.value"
         class="w-full"
@@ -122,6 +120,9 @@ onMounted(() => {
           <Navigation />
         </template>
       </Carousel>
+      <div v-else-if="leagueMatches.error.value">
+        <ErrorMessage :message="leagueMatches.error.value" />
+      </div>
       <Carousel v-else-if="leagueMatches.data.value" class="w-full" v-bind="config">
         <Slide v-for="match in leagueMatches.data.value" :key="match">
           <MatchCard :data="match" />

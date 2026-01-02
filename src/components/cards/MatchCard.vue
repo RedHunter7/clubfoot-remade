@@ -69,7 +69,7 @@ switch (props.data.status) {
 </script>
 
 <template>
-  <div class="bg-base-100 w-90 h-48 rounded-2xl p-3 text-center">
+  <div class="bg-base-100 w-90 h-48 rounded-2xl p-3 text-center text-black">
     <div class="font-bold text-lg">{{ headerText }}</div>
     <div class="flex flex-row mt-3 gap-x-1 flex flex-row justify-center items-center gap-x-6">
       <div class="flex flex-col gap-y-2">
