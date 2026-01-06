@@ -1,15 +1,27 @@
 <script setup lang="ts">
+import { countryToAlpha2 } from 'country-to-iso'
+
 type Coach = {
   id: number
   name: string
   nationality: string
 }
 
+type Player = {
+  id: number
+  name: string
+  position: string
+  nationality: string
+}
+
 interface props {
-  data: Coach
+  data: Coach | Player
 }
 
 const props = defineProps<props>()
+
+const flagCode = countryToAlpha2(props.data.nationality)
+console.log(flagCode)
 </script>
 
 <template>
@@ -19,7 +31,7 @@ const props = defineProps<props>()
     <div class="text-xl">{{ props.data.name }}</div>
     <div class="flex flex-row justify-center gap-x-2">
       <div class="font-normal">{{ props.data.nationality }}</div>
-      <img src="https://flagsapi.com/BE/flat/24.png" />
+      <img :src="`https://flagsapi.com/${flagCode}/flat/24.png`" />
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@ import { ref } from 'vue'
 
 export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
   const data = ref([]);
-  const isLoading = ref(false);
+  const isLoading = ref(true);
   const error = ref<string | null>(null)
 
   async function fetchLeagueMatches(leagueCode: string, matchday: number) {

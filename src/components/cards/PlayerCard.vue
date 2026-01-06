@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-base-100/80 rounded-2xl w-90 h-24 px-6 py-4 text-black flex flex-row justify-between"
+    class="bg-base-100/80 rounded-2xl w-80 h-20 px-6 py-4 text-black flex flex-row justify-between"
   >
     <div class="flex flex-col justify-center gap-y-2">
       <div class="text-xl">Ruben Amorim</div>
