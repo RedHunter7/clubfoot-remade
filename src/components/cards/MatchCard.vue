@@ -1,16 +1,5 @@
 <script setup lang="ts">
-function getDayDifference(date1: Date, date2: Date) {
-  // A day in milliseconds
-  const millisecondsPerDay = 1000 * 60 * 60 * 24
-
-  // Convert dates to UTC timestamps for consistent comparison
-  const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate())
-  const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate())
-
-  // Calculate the difference in milliseconds and convert to days
-  // Math.floor can be used to get only the full days
-  return Math.floor((utc2 - utc1) / millisecondsPerDay)
-}
+import getDayDifference from '@/functions/GetDayDifference'
 
 type Match = {
   id: number
@@ -45,6 +34,8 @@ const currentTime = new Date()
 let headerText = ''
 let middleText = 'VS'
 
+console.log(props.data.utcDate)
+
 switch (props.data.status) {
   case 'FINISHED':
     headerText = `Fulltime`
@@ -54,8 +45,15 @@ switch (props.data.status) {
     headerText = `LIVE ${props.data.minute}""`
     break
   case 'TIMED':
-    headerText = scheduleTime.toLocaleString()
-    const daysDiff = getDayDifference(scheduleTime, currentTime)
+    headerText = scheduleTime.toLocaleString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+    console.log(headerText)
+    const daysDiff = getDayDifference(currentTime, scheduleTime)
     switch (daysDiff) {
       case 0:
         headerText = `Today${headerText.slice(10)}`

@@ -94,7 +94,7 @@ onMounted(() => {
         <div v-if="leagueStanding.isLoading.value" class="overflow-x-scroll h-full">
           <LeagueTableHeader />
           <div v-for="n in 16" :key="n">
-            <div class="animate-pulse skeleton w-full h-10 my-2"></div>
+            <div class="animate-pulse skeleton w-full h-8 my-2"></div>
           </div>
         </div>
         <div v-else-if="leagueStanding.error.value" class="overflow-x-scroll h-full">

@@ -4,20 +4,28 @@ import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
 
 export const useClubMatchesStore = defineStore("ClubMatches", () => {
-  const data = ref([])
-  /*
   const data = ref([{
     id: 0,
     utcDate: "",
+    status: "",
     homeTeam: {
-        shortName: "",
-        crest: ""
+      id: 0,
+      shortName: "",
+      crest: ""
     },
     awayTeam: {
-        shortName: "",
-        crest: ""
+      id: 0,
+      shortName: "",
+      crest: ""
+    },
+    score: {
+      winner: "",
+      fullTime: {
+        home: 0,
+        away: 0
+      }
     }
-  }]); */
+  }]);
 
   const isLoading = ref(true);
   const error = ref<string | null>(null)
@@ -30,8 +38,7 @@ export const useClubMatchesStore = defineStore("ClubMatches", () => {
         },
       })
   
-      data.value = response.data.matches
-
+      data.value.push(...response.data.matches)
       // console.log(data.value)
     } catch (err) {
       if (err instanceof Error) {

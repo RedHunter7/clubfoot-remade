@@ -39,15 +39,7 @@ onMounted(() => {
         <input type="search" placeholder="Search" />
       </label>
     </div>
-    <div v-if="clubList.isLoading.value" :class="cardContainerClass">
-      <div v-for="n in 16" :key="n">
-        <div class="animate-pulse skeleton h-40 w-48 rounded-2xl"></div>
-      </div>
-    </div>
-    <div v-else-if="clubList.error.value" class="mt-20 text-white">
-      <ErrorMessage :message="clubList.error.value" />
-    </div>
-    <div v-else-if="clubList.data.value" :class="cardContainerClass">
+    <div :class="cardContainerClass">
       <div v-for="club in clubList.data.value" :key="club">
         <ClubCard :data="club" />
       </div>
