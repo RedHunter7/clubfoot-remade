@@ -8,8 +8,8 @@ import HeroWithFigure from '@/components/HeroWithFigure.vue'
       <div className="hero-overlay bg-black/30"></div>
       <div className="hero-content text-neutral-content text-center">
         <div className="max-w-4xl">
-          <h1 className="mb-5 text-7xl text-white font-title">CLUB FOOT</h1>
-          <p className="mb-5 text-white font-bold text-4xl leading-[1.5]">
+          <h1 className="mb-5 text-5xl sm:text-7xl text-white font-title">CLUB FOOT</h1>
+          <p className="mb-5 text-white font-bold text-2xl sm:text-4xl leading-[1.5]">
             Find your favorite club on the 4 best football league in the world
           </p>
         </div>

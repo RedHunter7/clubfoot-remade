@@ -3,18 +3,26 @@ import IconPremierLeague from './icons/leagues/IconPremierLeague.vue'
 import IconSerieA from './icons/leagues/IconSerieA.vue'
 import IconLaLiga from './icons/leagues/IconLaLiga.vue'
 import IconBundesliga from './icons/leagues/IconBundesliga.vue'
+import IconMenu from './icons/IconMenu.vue'
 import { RouterLink } from 'vue-router'
 </script>
 
 <template>
   <div
     className="navbar sticky top-0 bg-secondary z-99
-  text-white shadow-sm px-8"
+  text-white shadow-sm sm:px-8"
   >
-    <div className="flex-1">
-      <RouterLink to="/" class="btn btn-ghost text-3xl font-title"> CLUB FOOT </RouterLink>
+    <div className="flex-none sm:hidden">
+      <button className="btn btn-square btn-ghost fill-white">
+        <IconMenu class="fill-white size-8" />
+      </button>
     </div>
-    <div className="flex-none pr-8">
+    <div className="flex-1">
+      <RouterLink to="/" class="btn btn-ghost text-2xl md:text-3xl font-title">
+        CLUB FOOT
+      </RouterLink>
+    </div>
+    <div className="hidden md:block flex-none pr-8">
       <ul className="menu menu-horizontal text-xl px-1 gap-x-8">
         <li>
           <details>

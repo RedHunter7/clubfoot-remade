@@ -31,24 +31,24 @@ function getImageUrl(name: string, ext: string) {
 </script>
 
 <template>
-  <div className="hero text-white py-8">
+  <div className="hero text-white lg:py-8 text-center sm:text-left">
     <div
       class="hero-content px-16 flex-col gap-x-16"
       v-bind:class="{
-        'lg:flex-row': props.isReverse,
-        'lg:flex-row-reverse': !props.isReverse,
+        'sm:flex-row': props.isReverse,
+        'sm:flex-row-reverse': !props.isReverse,
       }"
     >
       <img
         :src="getImageUrl(props.imageName, 'png')"
-        class="w-sm rounded-xl object-scale-down"
+        class="w-xs lg:w-sm rounded-xl object-scale-down"
         :class="`bg-white/${props.imageBgOpacity}`"
       />
-      <div class="w-7/12">
-        <h1 className="text-4xl font-bold">
+      <div class="lg:w-7/12">
+        <h1 className="text-2xl lg:text-4xl font-bold">
           {{ props.header }}
         </h1>
-        <p className="text-2xl py-6">
+        <p className="lg:text-xl py-2 lg:py-6">
           {{ props.paragraph }}
         </p>
       </div>

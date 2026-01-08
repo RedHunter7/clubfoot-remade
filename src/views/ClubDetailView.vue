@@ -2,6 +2,7 @@
 import SquadCard from '@/components/cards/SquadCard.vue'
 import MatchTemplate from '@/components/templates/MatchTemplate.vue'
 import SquadCardSkeleton from '@/components/skeletons/SquadCardSkeleton.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 import { useClubDetailStore } from '@/stores/clubs/ClubDetail'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -78,6 +79,14 @@ const attackers = computed(() => {
         v-if="clubDetail.isLoading.value"
         class="w-3/10 my-6 skeleton animate-pulse rounded-2xl"
       ></div>
+      <div
+        v-else-if="clubDetail.error.value"
+        class="w-3/10 my-6 bg-base-100/80 rounded-2xl relative"
+      >
+        <div class="absolute top-1/2 left-1/2 -translate-1/2">
+          <ErrorMessage :message="clubDetail.error.value" />
+        </div>
+      </div>
       <div v-else-if="clubDetail.data.value" class="w-3/10 my-6 bg-base-100/80 rounded-2xl">
         <div class="text-center text-2xl my-6 flex flex-col gap-y-6">
           <img :src="clubDetail.data.value.crest" class="fill-white size-32 mx-auto" srcset="" />
@@ -92,7 +101,7 @@ const attackers = computed(() => {
             <div class="text-lg">Venue</div>
           </div>
           <div>
-            <div class="font-bold">
+            <div class="font-bold text-xl">
               {{ clubDetail.data.value.runningCompetitions[1]?.name || '-' }}
             </div>
             <div class="text-lg">Continental Competition</div>
@@ -106,6 +115,14 @@ const attackers = computed(() => {
             v-if="matchesClub.isLoading.value"
             class="skeleton animate-pulse rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
           ></div>
+          <div
+            v-else-if="matchesClub.error.value"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-6 relative"
+          >
+            <div class="absolute top-1/2 left-1/2 -translate-1/2">
+              <ErrorMessage :message="matchesClub.error.value" />
+            </div>
+          </div>
           <div
             v-else-if="matchesClub.data.value"
             class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
@@ -121,6 +138,14 @@ const attackers = computed(() => {
             v-if="matchesClub.isLoading.value"
             class="skeleton animate-pulse rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
           ></div>
+          <div
+            v-else-if="matchesClub.error.value"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-6 relative"
+          >
+            <div class="absolute top-1/2 left-1/2 -translate-1/2">
+              <ErrorMessage :message="matchesClub.error.value" />
+            </div>
+          </div>
           <div
             v-else-if="matchesClub.data.value"
             class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
@@ -138,6 +163,9 @@ const attackers = computed(() => {
         <div>
           <h6 class="mb-2 text-xl">Coach</h6>
           <SquadCardSkeleton v-if="clubDetail.isLoading.value" />
+          <div v-else-if="clubDetail.error.value">
+            <ErrorMessage :message="clubDetail.error.value" />
+          </div>
           <SquadCard v-else-if="clubDetail.data.value" :data="clubDetail.data.value.coach" />
         </div>
         <div>
@@ -148,6 +176,9 @@ const attackers = computed(() => {
                 <SquadCardSkeleton />
               </template>
             </template>
+            <div v-else-if="clubDetail.error.value">
+              <ErrorMessage :message="clubDetail.error.value" />
+            </div>
             <template v-else-if="clubDetail.data.value">
               <div v-for="goalkeeper in goalkeepers" :key="goalkeeper.id">
                 <SquadCard :data="goalkeeper" />
@@ -163,6 +194,9 @@ const attackers = computed(() => {
                 <SquadCardSkeleton />
               </template>
             </template>
+            <div v-else-if="clubDetail.error.value">
+              <ErrorMessage :message="clubDetail.error.value" />
+            </div>
             <template v-else-if="clubDetail.data.value">
               <div v-for="defender in defenders" :key="defender.id">
                 <SquadCard :data="defender" />
@@ -178,6 +212,9 @@ const attackers = computed(() => {
                 <SquadCardSkeleton />
               </template>
             </template>
+            <div v-else-if="clubDetail.error.value">
+              <ErrorMessage :message="clubDetail.error.value" />
+            </div>
             <template v-else-if="clubDetail.data.value">
               <div v-for="midfield in midfielders" :key="midfield.id">
                 <SquadCard :data="midfield" />
@@ -193,6 +230,9 @@ const attackers = computed(() => {
                 <SquadCardSkeleton />
               </template>
             </template>
+            <div v-else-if="clubDetail.error.value">
+              <ErrorMessage :message="clubDetail.error.value" />
+            </div>
             <template v-else-if="clubDetail.data.value">
               <div v-for="attacker in attackers" :key="attacker.id">
                 <SquadCard :data="attacker" />
