@@ -22,6 +22,9 @@ onMounted(() => {
   clubDetailStore
     .fetchClubDetail(clubId)
     .then(() => {
+      matchesClubStore.resetClubMatches()
+    })
+    .then(() => {
       matchesClubStore.fetchClubMatches(clubId, 'SCHEDULED')
     })
     .then(() => {
@@ -74,7 +77,7 @@ const attackers = computed(() => {
 
 <template>
   <div class="w-11/12 mx-auto">
-    <div class="flex flex-row h-[calc(100vh_-_72px)]">
+    <div class="flex flex-row">
       <div
         v-if="clubDetail.isLoading.value"
         class="w-3/10 my-6 skeleton animate-pulse rounded-2xl"
@@ -88,7 +91,7 @@ const attackers = computed(() => {
         </div>
       </div>
       <div v-else-if="clubDetail.data.value" class="w-3/10 my-6 bg-base-100/80 rounded-2xl">
-        <div class="text-center text-2xl my-6 flex flex-col gap-y-6">
+        <div class="text-center text-2xl my-6 flex flex-col gap-y-6 py-4">
           <img :src="clubDetail.data.value.crest" class="fill-white size-32 mx-auto" srcset="" />
           <div>
             <div class="font-bold">{{ clubDetail.data.value.name }}</div>
@@ -101,7 +104,7 @@ const attackers = computed(() => {
             <div class="text-lg">Venue</div>
           </div>
           <div>
-            <div class="font-bold text-xl">
+            <div class="font-bold text-lg">
               {{ clubDetail.data.value.runningCompetitions[1]?.name || '-' }}
             </div>
             <div class="text-lg">Continental Competition</div>
@@ -125,7 +128,7 @@ const attackers = computed(() => {
           </div>
           <div
             v-else-if="matchesClub.data.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6 overflow-x-auto overflow-y-hidden"
           >
             <div v-for="match in scheduledMatches" :key="match.id">
               <MatchTemplate :data="match" :clubId="Number(route.params.id)" />
@@ -148,7 +151,7 @@ const attackers = computed(() => {
           </div>
           <div
             v-else-if="matchesClub.data.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6 overflow-x-auto overflow-y-hidden"
           >
             <div v-for="match in finishedMatches" :key="match.id">
               <MatchTemplate :data="match" :clubId="Number(route.params.id)" />

@@ -67,16 +67,16 @@ switch (props.data.status) {
 </script>
 
 <template>
-  <div class="bg-base-100 w-90 h-48 rounded-2xl p-3 text-center text-black">
+  <div class="bg-base-100 w-72 h-40 lg:w-90 lg:h-48 rounded-2xl p-3 text-center text-black">
     <div class="font-bold text-lg">{{ headerText }}</div>
     <div class="flex flex-row mt-3 gap-x-1 flex flex-row justify-center items-center gap-x-6">
       <div class="flex flex-col gap-y-2">
-        <img :src="props.data.homeTeam.crest" alt="" class="size-24 mx-auto" />
+        <img :src="props.data.homeTeam.crest" alt="" class="size-16 lg:size-24 mx-auto" />
         <div class="text-sm">{{ props.data.homeTeam.shortName }}</div>
       </div>
       <div class="text-3xl font-bold">{{ middleText }}</div>
       <div class="flex flex-col gap-y-2">
-        <img :src="props.data.awayTeam.crest" alt="" class="size-24 mx-auto" />
+        <img :src="props.data.awayTeam.crest" alt="" class="size-16 lg:size-24 mx-auto" />
         <div class="text-sm">{{ props.data.awayTeam.shortName }}</div>
       </div>
     </div>

@@ -26,7 +26,7 @@ const flagCode = countryToAlpha2(props.data.nationality)
 
 <template>
   <div
-    class="bg-base-100/80 rounded-2xl w-80 h-20 px-6 py-4 mx-auto text-black flex flex-col justify-center gap-y-2"
+    class="bg-base-100/80 rounded-2xl w-80 h-20 px-6 py-4 mx-auto text-black flex flex-col justify-center gap-y-1"
   >
     <div class="text-xl">{{ props.data.name }}</div>
     <div class="flex flex-row justify-center gap-x-2">

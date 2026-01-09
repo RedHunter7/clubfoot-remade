@@ -48,10 +48,11 @@ const props = defineProps({
           class="odd:bg-base-300/10 hover:text-secondary odd:hover:bg-white even:hover:bg-primary-content"
         >
           <th>{{ club.position }}</th>
-          <td class="flex flex-row gap-x-2">
+          <td class="flex flex-row gap-x-3 items-center">
             <img
               :src="club.team.crest"
               :alt="`${club.team.shortName} Crest`"
+              class="size-5"
               width="20"
               height="20"
             />

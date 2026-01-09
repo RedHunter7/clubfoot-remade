@@ -15,12 +15,28 @@ import { useLeagueMatchesStore } from '@/stores/leagues/LeagueMatches'
 
 const config = {
   height: 200,
-  itemsToShow: 3,
+  itemsToShow: 1,
   gap: 2,
   autoplay: 2000,
   wrapAround: true,
   pauseAutoplayOnHover: true,
   mouseWheel: true,
+  breakpoints: {
+    // 300px and up
+    640: {
+      itemsToShow: 1,
+      gap: 1,
+    },
+    // 400px and up
+    768: {
+      itemsToShow: 2,
+      gap: 0,
+    },
+    // 500px and up
+    1024: {
+      itemsToShow: 3,
+    },
+  },
 }
 
 const leagueStandingStore = useLeagueStandingStore()
@@ -53,44 +69,46 @@ onMounted(() => {
 
 <template>
   <div class="bg-primary">
-    <div class="flex flex-row h-[calc(100vh_-_72px)]">
-      <div class="w-2/5 my-8">
-        <div class="bg-base-100 w-3/4 h-48 rounded-xl mx-auto flex items-center">
+    <div class="flex flex-col lg:flex-row landscape:h-[calc(100vh_-_72px)]">
+      <div
+        class="w-11/12 lg:w-2/5 mx-auto my-2 md:my-8 flex flex-row lg:flex-col justify-center items-center gap-x-4 md:gap-x-16"
+      >
+        <div class="bg-base-100 w-40 h-fit md:w-80 md:h-48 rounded-xl lg:mx-auto">
           <div
             v-if="leagueStanding.isLoading.value"
-            className="skeleton size-full animate-pulse"
+            className="skeleton size-32 md:size-full animate-pulse"
           ></div>
-          <div v-else-if="leagueStanding.error.value" class="mx-auto">
+          <div v-else-if="leagueStanding.error.value" class="mx-auto my-2 md:my-7">
             <ErrorMessage :message="leagueStanding.error.value" />
           </div>
           <img
             v-else-if="leagueStanding.data.value"
             :src="leagueStanding.data.value.competition.emblem"
-            class="fill-white size-40 mx-auto"
+            class="fill-white size-20 md:size-40 mx-auto my-2 md:my-4"
             srcset=""
           />
         </div>
-        <div class="text-center text-white text-2xl my-4">
-          <div v-if="leagueStanding.isLoading.value" class="animate-pulse w-3/4 mx-auto">
-            <div className="skeleton w-48 h-8 mx-auto"></div>
-            <div class="skeleton w-64 h-40 mx-auto my-4"></div>
-            <div className="skeleton w-48 h-8 mx-auto"></div>
+        <div class="text-center text-white text-xl md:text-2xl my-4">
+          <div v-if="leagueStanding.isLoading.value" class="animate-pulse w-full">
+            <div className="skeleton w-24 md:w-48 h-4 md:h-8 mx-auto"></div>
+            <div class="skeleton w-32 md:w-64 h-20 md:h-40 mx-auto my-4"></div>
+            <div className="skeleton w-24 md:w-48 h-4 md:h-8 mx-auto"></div>
           </div>
-          <div v-else-if="leagueStanding.error.value" class="mt-16 text-lg">
+          <div v-else-if="leagueStanding.error.value" class="lg:mt-16 text-lg">
             <ErrorMessage :message="leagueStanding.error.value" />
           </div>
           <div v-else-if="leagueStanding.data.value">
             <div>{{ leagueStanding.data.value.competition.name }}</div>
             <img
               :src="leagueStanding.data.value.area.flag"
-              class="fill-white w-64 mx-auto my-4 border-2 border-secondary"
+              class="fill-white w-32 md:w-64 mx-auto my-2 md:my-4 border-2 border-secondary"
               srcset=""
             />
             <div>{{ leagueStanding.data.value.area.name }}</div>
           </div>
         </div>
       </div>
-      <div class="w-3/5">
+      <div class="w-full lg:w-3/5">
         <div v-if="leagueStanding.isLoading.value" class="overflow-x-scroll h-full">
           <LeagueTableHeader />
           <div v-for="n in 16" :key="n">
@@ -99,7 +117,7 @@ onMounted(() => {
         </div>
         <div v-else-if="leagueStanding.error.value" class="overflow-x-scroll h-full">
           <LeagueTableHeader />
-          <div class="mt-32 text-white">
+          <div class="mt-8 lg:mt-32 text-white">
             <ErrorMessage :message="leagueStanding.error.value" />
           </div>
         </div>
@@ -114,7 +132,7 @@ onMounted(() => {
         v-bind="config"
       >
         <Slide v-for="n in 10" :key="n">
-          <div class="skeleton animate-pulse w-90 h-48 rounded-2xl"></div>
+          <div class="skeleton animate-pulse w-72 h-40 lg:w-90 lg:h-48 rounded-2xl"></div>
         </Slide>
         <template #addons>
           <Navigation />

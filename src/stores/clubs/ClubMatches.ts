@@ -30,6 +30,10 @@ export const useClubMatchesStore = defineStore("ClubMatches", () => {
   const isLoading = ref(true);
   const error = ref<string | null>(null)
 
+  async function resetClubMatches() {
+    data.value = []
+  }
+
   async function fetchClubMatches(clubId: string, status: string) {
     try {
       const response = await axios.get(`${BASE_API.BASE_URL}/teams/${clubId}/matches?status=${status}&limit=5`, {
@@ -51,5 +55,5 @@ export const useClubMatchesStore = defineStore("ClubMatches", () => {
     }
   }
 
-  return { data, isLoading, error, fetchClubMatches };
+  return { data, isLoading, error, fetchClubMatches, resetClubMatches };
 })
