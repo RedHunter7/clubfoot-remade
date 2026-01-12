@@ -6,7 +6,7 @@ import ErrorMessage from '@/components/ErrorMessage.vue'
 import { useClubDetailStore } from '@/stores/clubs/ClubDetail'
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { useClubMatchesStore } from '@/stores/clubs/ClubMatches'
 
 const clubDetailStore = useClubDetailStore()
@@ -16,6 +16,24 @@ const matchesClubStore = useClubMatchesStore()
 const matchesClub = storeToRefs(matchesClubStore)
 
 const route = useRoute()
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    const clubId = newId as string
+    clubDetailStore
+      .fetchClubDetail(clubId)
+      .then(() => {
+        matchesClubStore.resetClubMatches()
+      })
+      .then(() => {
+        matchesClubStore.fetchClubMatches(clubId, 'SCHEDULED')
+      })
+      .then(() => {
+        matchesClubStore.fetchClubMatches(clubId, 'FINISHED')
+      })
+  },
+)
 
 onMounted(() => {
   const clubId = route.params.id as string
@@ -77,50 +95,63 @@ const attackers = computed(() => {
 
 <template>
   <div class="w-11/12 mx-auto">
-    <div class="flex flex-row">
+    <div class="flex flex-col sm:flex-row">
       <div
         v-if="clubDetail.isLoading.value"
-        class="w-3/10 my-6 skeleton animate-pulse rounded-2xl"
+        class="w-full sm:w-3/10 my-6 h-56 sm:h-110 skeleton animate-pulse rounded-2xl"
       ></div>
       <div
         v-else-if="clubDetail.error.value"
-        class="w-3/10 my-6 bg-base-100/80 rounded-2xl relative"
+        class="w-full sm:w-3/10 my-6 h-56 sm:h-110 bg-base-100/80 rounded-2xl relative"
       >
         <div class="absolute top-1/2 left-1/2 -translate-1/2">
           <ErrorMessage :message="clubDetail.error.value" />
         </div>
       </div>
-      <div v-else-if="clubDetail.data.value" class="w-3/10 my-6 bg-base-100/80 rounded-2xl">
-        <div class="text-center text-2xl my-6 flex flex-col gap-y-6 py-4">
-          <img :src="clubDetail.data.value.crest" class="fill-white size-32 mx-auto" srcset="" />
-          <div>
-            <div class="font-bold">{{ clubDetail.data.value.name }}</div>
-            <div class="text-xl">
-              {{ clubDetail.data.value.runningCompetitions[0]?.name }}
+      <div
+        v-else-if="clubDetail.data.value"
+        class="w-full sm:w-3/10 h-fit my-3 sm:my-6 bg-base-100/80 rounded-2xl"
+      >
+        <div
+          class="text-center text-base sm:text-lg lg:text-2xl my-6 flex flex-col gap-y-6 py-0 sm:py-4"
+        >
+          <div class="flex sm:flex-col justify-center items-center gap-x-4">
+            <img
+              :src="clubDetail.data.value.crest"
+              class="fill-white size-24 sm:size-32 sm:mx-auto"
+              srcset=""
+            />
+            <div class="mt-6">
+              <div class="font-bold">{{ clubDetail.data.value.name }}</div>
+              <div class="text-lg lg:text-xl">
+                {{ clubDetail.data.value.runningCompetitions[0]?.name }}
+              </div>
             </div>
           </div>
-          <div class="mt-4">
-            <div class="font-bold">{{ clubDetail.data.value.venue }}</div>
-            <div class="text-lg">Venue</div>
-          </div>
-          <div>
-            <div class="font-bold text-lg">
-              {{ clubDetail.data.value.runningCompetitions[1]?.name || '-' }}
+          <div class="flex sm:flex-col justify-evenly items-center">
+            <div>
+              <div class="font-bold">{{ clubDetail.data.value.venue }}</div>
+              <div class="text-md sm:text-lg">Venue</div>
             </div>
-            <div class="text-lg">Continental Competition</div>
+            <div class="mt-4">
+              <div class="font-bold text-lg">
+                {{ clubDetail.data.value.runningCompetitions[1]?.name || '-' }}
+              </div>
+              <div class="text-sm lg:text-lg">Continental Competition</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="w-7/10 my-6 ml-6">
+      <div class="w-full sm:w-7/10 my-2 sm:my-6 sm:ml-6">
         <div class="h-1/2">
           <h5 class="text-white font-bold pl-2 text-lg">Next Match</h5>
           <div
             v-if="matchesClub.isLoading.value"
-            class="skeleton animate-pulse rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
+            class="skeleton animate-pulse rounded-2xl w-full h-32 sm:h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
           ></div>
           <div
             v-else-if="matchesClub.error.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-6 relative"
+            class="bg-base-100/80 rounded-2xl w-full h-40 sm:h-3/4 my-2 px-6 relative"
           >
             <div class="absolute top-1/2 left-1/2 -translate-1/2">
               <ErrorMessage :message="matchesClub.error.value" />
@@ -128,7 +159,7 @@ const attackers = computed(() => {
           </div>
           <div
             v-else-if="matchesClub.data.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6 overflow-x-auto overflow-y-hidden"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-3 lg:px-6 flex flex-row gap-x-4 justify-left items-center overflow-x-auto overflow-y-hidden"
           >
             <div v-for="match in scheduledMatches" :key="match.id">
               <MatchTemplate :data="match" :clubId="Number(route.params.id)" />
@@ -139,11 +170,11 @@ const attackers = computed(() => {
           <h5 class="text-white font-bold pl-2 text-lg">Match Result</h5>
           <div
             v-if="matchesClub.isLoading.value"
-            class="skeleton animate-pulse rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
+            class="skeleton animate-pulse rounded-2xl w-full h-32 sm:h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6"
           ></div>
           <div
             v-else-if="matchesClub.error.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-6 relative"
+            class="bg-base-100/80 rounded-2xl w-full h-40 sm:h-3/4 my-2 px-6 relative"
           >
             <div class="absolute top-1/2 left-1/2 -translate-1/2">
               <ErrorMessage :message="matchesClub.error.value" />
@@ -151,7 +182,7 @@ const attackers = computed(() => {
           </div>
           <div
             v-else-if="matchesClub.data.value"
-            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 flex flex-row gap-x-4 justify-left px-6 overflow-x-auto overflow-y-hidden"
+            class="bg-base-100/80 rounded-2xl w-full h-3/4 my-2 px-3 lg:px-6 flex flex-row gap-x-4 justify-left items-center overflow-x-auto overflow-y-hidden"
           >
             <div v-for="match in finishedMatches" :key="match.id">
               <MatchTemplate :data="match" :clubId="Number(route.params.id)" />
@@ -160,8 +191,8 @@ const attackers = computed(() => {
         </div>
       </div>
     </div>
-    <div class="text-center text-white font-bold py-8">
-      <h3 class="text-3xl my-4">Player & Staff</h3>
+    <div class="text-center text-white font-bold py-4 sm:py-8">
+      <h3 class="text-2xl sm:text-3xl my-2 sm:my-4">Player & Staff</h3>
       <div class="flex flex-col gap-y-8">
         <div>
           <h6 class="mb-2 text-xl">Coach</h6>

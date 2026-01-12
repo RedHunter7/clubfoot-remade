@@ -73,14 +73,24 @@ if (props.data.status == 'TIMED') {
 }
 </script>
 <template>
-  <div class="text-center flex flex-col justify-between my-3 font-bold text-sm w-32">
+  <div
+    class="text-center flex flex-col justify-between my-3 font-bold text-xs lg:text-sm w-24 lg:w-32"
+  >
     <template v-if="clubId != props.data.homeTeam.id">
       <div>{{ props.data.homeTeam.shortName }}</div>
-      <img :src="props.data.homeTeam.crest" class="fill-white size-24 mx-auto my-2" srcset="" />
+      <img
+        :src="props.data.homeTeam.crest"
+        class="fill-white size-16 sm:size-18 lg:size-24 mx-auto my-2"
+        srcset=""
+      />
     </template>
     <template v-else-if="clubId != props.data.awayTeam.id">
       <div>{{ props.data.awayTeam.shortName }}</div>
-      <img :src="props.data.awayTeam.crest" class="fill-white size-24 mx-auto my-2" srcset="" />
+      <img
+        :src="props.data.awayTeam.crest"
+        class="fill-white size-16 sm:size-18 lg:size-24 mx-auto my-2"
+        srcset=""
+      />
     </template>
     <div>{{ bottomText }}</div>
   </div>

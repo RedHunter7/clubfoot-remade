@@ -32,6 +32,9 @@ export const useClubDetailStore = defineStore("ClubDetail", () => {
 
   async function fetchClubDetail(clubId: string) {
     try {
+      isLoading.value = true
+      error.value = null
+      
       const response = await axios.get(`${BASE_API.BASE_URL}/teams/${clubId}`, {
         headers: {
           'X-Auth-Token': BASE_API.API_KEY,

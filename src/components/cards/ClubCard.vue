@@ -8,6 +8,7 @@ type Team = {
   runningCompetitions: [
     {
       name: string
+      type: string
     },
   ]
 }
@@ -17,6 +18,13 @@ interface props {
 }
 
 const props = defineProps<props>()
+
+let leagueName = ''
+props.data.runningCompetitions.forEach((competition) => {
+  if (competition.type == 'LEAGUE') {
+    leagueName = competition.name
+  }
+})
 </script>
 
 <template>
@@ -24,7 +32,7 @@ const props = defineProps<props>()
     :to="`/club/${props.data.id}`"
     class="h-40 w-48 bg-base-100 rounded-2xl px-2 py-3 text-center flex flex-col justify-between hover:bg-secondary hover:text-white"
   >
-    <div class="text-base">{{ props.data.runningCompetitions[0].name }}</div>
+    <div class="text-base">{{ leagueName }}</div>
     <img :src="props.data.crest" class="fill-white size-20 mx-auto" srcset="" />
     <div>{{ props.data.shortName }}</div>
   </RouterLink>

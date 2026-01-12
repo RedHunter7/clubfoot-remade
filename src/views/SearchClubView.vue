@@ -12,7 +12,9 @@ const clubListStore = useClubListStore()
 const clubList = storeToRefs(clubListStore)
 
 onMounted(() => {
-  clubListStore.fetchClubList()
+  clubListStore.resetClubList().then(() => {
+    clubListStore.fetchClubList()
+  })
 })
 </script>
 

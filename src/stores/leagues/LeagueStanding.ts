@@ -21,6 +21,9 @@ export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
 
   async function fetchLeagueStanding(leagueCode: string) {
     try {
+      isLoading.value = true
+      error.value = null
+      
       const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/standings`, {
         headers: {
           'X-Auth-Token': BASE_API.API_KEY,

@@ -30,6 +30,10 @@ export const useClubListStore = defineStore("ClubList", () => {
   const isLoading = ref(true);
   const error = ref<string | null>(null)
 
+  async function resetClubList() {
+    data.value = []
+  }
+
   async function collectClubs(leagueCode: string): Promise<never[] | undefined> {
     try {
       const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/teams`, {
@@ -56,6 +60,10 @@ export const useClubListStore = defineStore("ClubList", () => {
   }
 
   async function fetchClubList() {
+    callCount.value = 0
+    isLoading.value = true
+    error.value = null
+
     leagues.forEach(async league => {
         const result = await collectClubs(league);
         if (result) {
@@ -65,5 +73,5 @@ export const useClubListStore = defineStore("ClubList", () => {
     });
   }
 
-  return { data, isLoading, error, fetchClubList };
+  return { data, isLoading, error, fetchClubList, resetClubList };
 })
