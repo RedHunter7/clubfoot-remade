@@ -12,7 +12,8 @@ export const useClubDetailStore = defineStore("ClubDetail", () => {
     runningCompetitions: [{
       id: 0,
       name: '',
-      code: 0
+      type: '',
+      code: ''
     }],
     coach: {
       id: 0,
@@ -29,6 +30,11 @@ export const useClubDetailStore = defineStore("ClubDetail", () => {
 
   const isLoading = ref(true);
   const error = ref<string | null>(null)
+
+  async function resetClubDetail() {
+    isLoading.value = true
+    error.value = null
+  }
 
   async function fetchClubDetail(clubId: string) {
     try {
@@ -63,5 +69,5 @@ export const useClubDetailStore = defineStore("ClubDetail", () => {
     }
   }
 
-  return { data, isLoading, error, fetchClubDetail };
+  return { data, isLoading, error, fetchClubDetail, resetClubDetail };
 })

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
+    "@vueuse/components": "^14.1.0",
     "@vueuse/core": "^14.1.0",
     "axios": "^1.13.2",
     "country-to-iso": "^1.6.1",

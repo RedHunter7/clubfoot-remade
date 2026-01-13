@@ -37,8 +37,11 @@ watch(
 
 onMounted(() => {
   const clubId = route.params.id as string
-  clubDetailStore
-    .fetchClubDetail(clubId)
+  matchesClubStore
+    .resetClubMatches()
+    .then(() => {
+      clubDetailStore.fetchClubDetail(clubId)
+    })
     .then(() => {
       matchesClubStore.resetClubMatches()
     })
@@ -48,6 +51,19 @@ onMounted(() => {
     .then(() => {
       matchesClubStore.fetchClubMatches(clubId, 'FINISHED')
     })
+})
+
+const league = computed(() => {
+  return clubDetail.data.value.runningCompetitions.find(
+    (competition) => competition.type == 'LEAGUE',
+  )
+})
+
+const continentalCompetition = computed(() => {
+  return clubDetail.data.value.runningCompetitions.find(
+    (competition) =>
+      competition.code == 'CL' || competition.code == 'EL' || competition.code == 'UCL',
+  )
 })
 
 const scheduledMatches = computed(() => {
@@ -123,19 +139,19 @@ const attackers = computed(() => {
             />
             <div class="mt-6">
               <div class="font-bold">{{ clubDetail.data.value.name }}</div>
-              <div class="text-lg lg:text-xl">
-                {{ clubDetail.data.value.runningCompetitions[0]?.name }}
+              <div class="text-lg lg:text-xl mt-1">
+                {{ league?.name }}
               </div>
             </div>
           </div>
           <div class="flex sm:flex-col justify-evenly items-center">
             <div>
-              <div class="font-bold">{{ clubDetail.data.value.venue }}</div>
-              <div class="text-md sm:text-lg">Venue</div>
+              <div class="font-bold text-xl">{{ clubDetail.data.value.venue }}</div>
+              <div class="text-base sm:text-lg">Venue</div>
             </div>
             <div class="mt-4">
               <div class="font-bold text-lg">
-                {{ clubDetail.data.value.runningCompetitions[1]?.name || '-' }}
+                {{ continentalCompetition?.name || '-' }}
               </div>
               <div class="text-sm lg:text-lg">Continental Competition</div>
             </div>

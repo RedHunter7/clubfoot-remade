@@ -5,8 +5,15 @@ import IconLaLiga from './icons/leagues/IconLaLiga.vue'
 import IconBundesliga from './icons/leagues/IconBundesliga.vue'
 import IconMenu from './icons/IconMenu.vue'
 import IconClose from './icons/IconClose.vue'
-import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import IconArrowLeft from './icons/IconArrowLeft.vue'
+// import IconSave from './icons/IconSave.vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { computed, ref } from 'vue'
+
+const route = useRoute()
+
+// Access the current route name directly
+const currentRouteName = computed(() => route.name)
 
 const isSidebarActive = ref(false)
 
@@ -22,6 +29,8 @@ const closeDropdown = (event: Event) => {
     }
   }
 }
+
+// const handleSaveClick = () => {}
 </script>
 
 <template>
@@ -29,11 +38,19 @@ const closeDropdown = (event: Event) => {
     className="navbar sticky top-0 bg-secondary z-90
   text-white shadow-sm sm:px-8"
   >
-    <div className="flex-none sm:hidden">
+    <div className="flex-none">
+      <RouterLink
+        v-if="currentRouteName == 'club-detail'"
+        to="/club"
+        class="btn btn-square btn-ghost"
+      >
+        <IconArrowLeft class="swap fill-white hover:fill-black size-12" />
+      </RouterLink>
       <label
+        v-else
         htmlFor="my-drawer"
         aria-label="open sidebar"
-        class="btn btn-square btn-ghost"
+        class="btn btn-square btn-ghost sm:hidden"
         @click="toggleSidebarState"
       >
         <IconClose v-if="isSidebarActive" class="swap fill-white size-8" />
@@ -41,7 +58,14 @@ const closeDropdown = (event: Event) => {
       </label>
     </div>
     <div className="flex-1">
-      <RouterLink to="/" class="btn btn-ghost text-2xl md:text-3xl font-title">
+      <RouterLink
+        v-if="currentRouteName == 'club-detail'"
+        :to="`/club/${route.params.id}`"
+        class="btn btn-ghost text-2xl md:text-3xl font-title"
+      >
+        Club Detail
+      </RouterLink>
+      <RouterLink v-else to="/" class="btn btn-ghost text-2xl md:text-3xl font-title">
         CLUB FOOT
       </RouterLink>
     </div>
@@ -75,6 +99,10 @@ const closeDropdown = (event: Event) => {
           </details>
         </li>
         <li>
+          <RouterLink to="/club"> Club </RouterLink>
+        </li>
+        <!--
+        <li>
           <details>
             <summary>Club</summary>
             <ul className="bg-secondary w-32 rounded-t-none p-2">
@@ -86,7 +114,13 @@ const closeDropdown = (event: Event) => {
               </li>
             </ul>
           </details>
-        </li>
+        </li> -->
+        <!--
+        <li v-if="currentRouteName == 'club-detail'">
+          <button @click="handleSaveClick" className="btn btn-info btn-square">
+            <IconSave />
+          </button>
+        </li> -->
       </ul>
     </div>
   </div>

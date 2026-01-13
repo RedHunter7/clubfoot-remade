@@ -4,7 +4,7 @@ import IconSerieA from './icons/leagues/IconSerieA.vue'
 import IconLaLiga from './icons/leagues/IconLaLiga.vue'
 import IconBundesliga from './icons/leagues/IconBundesliga.vue'
 import IconSearch from './icons/IconSearch.vue'
-import IconSave from './icons/IconSave.vue'
+// import IconSave from './icons/IconSave.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -69,6 +69,7 @@ const navigateTo = (pathName: string) => {
         <IconSearch class="fill-white" /> Search Club
       </label>
     </li>
+    <!--
     <li>
       <label
         class="flex gap-x-4 h-10"
@@ -78,6 +79,6 @@ const navigateTo = (pathName: string) => {
       >
         <IconSave class="fill-white" /> Saved Club
       </label>
-    </li>
+    </li> -->
   </ul>
 </template>

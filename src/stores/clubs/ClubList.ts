@@ -22,8 +22,8 @@ function shuffleArray(array: never[] | undefined[]) {
 }
 
 export const useClubListStore = defineStore("ClubList", () => {
-  // const leagues = ["PL", "SA", "PD", "BL1"]
-  const leagues = ["PL"]
+  const leagues = ["PL", "SA", "PD", "BL1"]
+  // const leagues = ["PL"]
   const callCount = ref(0);
 
   const data = ref([]);

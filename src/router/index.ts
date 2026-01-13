@@ -24,6 +24,10 @@ const router = createRouter({
       component: () => import('../views/ClubDetailView.vue'),
     }
   ],
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0, behavior: 'smooth' };
+  },
 })
 
 export default router

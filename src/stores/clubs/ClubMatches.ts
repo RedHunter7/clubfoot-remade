@@ -32,6 +32,8 @@ export const useClubMatchesStore = defineStore("ClubMatches", () => {
 
   async function resetClubMatches() {
     data.value = []
+    isLoading.value = true
+    error.value = null
   }
 
   async function fetchClubMatches(clubId: string, status: string) {

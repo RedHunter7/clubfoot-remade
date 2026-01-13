@@ -34,7 +34,7 @@ const currentTime = new Date()
 let headerText = ''
 let middleText = 'VS'
 
-console.log(props.data.utcDate)
+// console.log(props.data.utcDate)
 
 switch (props.data.status) {
   case 'FINISHED':
