@@ -76,7 +76,7 @@ onMounted(() => {
         <div class="bg-base-100 w-40 h-fit md:w-80 md:h-48 rounded-xl lg:mx-auto">
           <div
             v-if="leagueStanding.isLoading.value"
-            className="skeleton size-32 md:size-full animate-pulse"
+            className="skeleton h-24 w-full md:size-full animate-pulse"
           ></div>
           <div v-else-if="leagueStanding.error.value" class="mx-auto my-2 md:my-7">
             <ErrorMessage :message="leagueStanding.error.value" />

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
+
 const rows = []
 for (let index = 0; index < 20; index++) {
   rows[index] = index
@@ -7,6 +9,7 @@ for (let index = 0; index < 20; index++) {
 type Club = {
   position: string
   team: {
+    id: number
     crest: string
     shortName: string
   }
@@ -56,7 +59,9 @@ const props = defineProps({
               width="20"
               height="20"
             />
-            <div>{{ club.team.shortName }}</div>
+            <RouterLink :to="`/club/${club.team.id}`" class="link link-hover">
+              {{ club.team.shortName }}
+            </RouterLink>
           </td>
           <td>{{ club.playedGames }}</td>
           <td>{{ club.won }}</td>

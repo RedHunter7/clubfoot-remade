@@ -4,7 +4,7 @@ import IconSearch from '@/components/icons/IconSearch.vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 import { useClubListStore } from '@/stores/clubs/ClubList'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 import type { Team } from '@/types'
 import IconBundesliga from '@/components/icons/leagues/IconBundesliga.vue'
@@ -19,16 +19,6 @@ const clubList = storeToRefs(clubListStore)
 
 const leagues = ['PL', 'SA', 'PD', 'BL1']
 const selectedLeague = ref(leagues[Math.floor(Math.random() * 4)])
-
-onMounted(() => {
-  if (clubList.data.value.length == 0) {
-    clubListStore.resetClubList().then(() => {
-      if (selectedLeague.value) {
-        clubListStore.fetchClubList(selectedLeague.value)
-      }
-    })
-  }
-})
 
 const searchQuery = ref('')
 
@@ -48,11 +38,30 @@ const handleInput = (event: Event) => {
     return updateSearch(inputElement.value)
   }
 }
+
+watch(
+  () => selectedLeague.value,
+  () => {
+    clubListStore.resetClubList().then(() => {
+      if (selectedLeague.value) {
+        clubListStore.fetchClubList(selectedLeague.value)
+      }
+    })
+  },
+)
+
+onMounted(() => {
+  clubListStore.resetClubList().then(() => {
+    if (selectedLeague.value) {
+      clubListStore.fetchClubList(selectedLeague.value)
+    }
+  })
+})
 </script>
 
 <template>
   <div v-if="clubList.isLoading.value">
-    <div class="pt-8 flex justify-center items-center gap-x-2">
+    <div class="pt-8 flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
       <div class="animate-pulse skeleton h-12 w-72 rounded-xl"></div>
       <div class="animate-pulse skeleton h-12 w-40 rounded-xl"></div>
     </div>
@@ -68,13 +77,13 @@ const handleInput = (event: Event) => {
     </div>
   </div>
   <div v-else-if="clubList.data.value">
-    <div class="pt-8 text-center flex justify-center items-center gap-x-2">
+    <div class="pt-8 text-center flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
       <label className="input input-lg rounded-xl border-none outline-none">
         <IconSearch />
         <input type="search" placeholder="Search" @input="handleInput" />
       </label>
       <select
-        :defaultValue="selectedLeague"
+        v-model="selectedLeague"
         className="select select-lg w-40 rounded-xl text-base border-none outline-none"
       >
         <option value="PL"><IconPremierLeague class="size-6" /> Premier League</option>

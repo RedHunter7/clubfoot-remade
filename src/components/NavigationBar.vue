@@ -7,9 +7,10 @@ import IconMenu from './icons/IconMenu.vue'
 import IconClose from './icons/IconClose.vue'
 import IconArrowLeft from './icons/IconArrowLeft.vue'
 // import IconSave from './icons/IconSave.vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 
+const router = useRouter()
 const route = useRoute()
 
 // Access the current route name directly
@@ -30,6 +31,10 @@ const closeDropdown = (event: Event) => {
   }
 }
 
+const handleBackButton = () => {
+  router.back()
+}
+
 // const handleSaveClick = () => {}
 </script>
 
@@ -39,13 +44,13 @@ const closeDropdown = (event: Event) => {
   text-white shadow-sm sm:px-8"
   >
     <div className="flex-none">
-      <RouterLink
+      <label
         v-if="currentRouteName == 'club-detail'"
-        to="/club"
         class="btn btn-square btn-ghost"
+        @click="handleBackButton"
       >
         <IconArrowLeft class="swap fill-white hover:fill-black size-12" />
-      </RouterLink>
+      </label>
       <label
         v-else
         htmlFor="my-drawer"
