@@ -6,42 +6,29 @@ import { useClubListStore } from '@/stores/clubs/ClubList'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted, ref } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
-import { vInfiniteScroll } from '@vueuse/components'
-
-type Team = {
-  shortName: string
-}
+import type { Team } from '@/types'
+import IconBundesliga from '@/components/icons/leagues/IconBundesliga.vue'
+import IconPremierLeague from '@/components/icons/leagues/IconPremierLeague.vue'
+import IconLaLiga from '@/components/icons/leagues/IconLaLiga.vue'
+import IconSerieA from '@/components/icons/leagues/IconSerieA.vue'
 
 const cardContainerClass = 'flex flex-row flex-wrap justify-center gap-6 my-8 w-5/6 mx-auto'
 
 const clubListStore = useClubListStore()
 const clubList = storeToRefs(clubListStore)
 
+const leagues = ['PL', 'SA', 'PD', 'BL1']
+const selectedLeague = ref(leagues[Math.floor(Math.random() * 4)])
+
 onMounted(() => {
   if (clubList.data.value.length == 0) {
     clubListStore.resetClubList().then(() => {
-      clubListStore.fetchClubList()
-      loadedData.value.push(...clubList.data.value.slice(0, 20))
+      if (selectedLeague.value) {
+        clubListStore.fetchClubList(selectedLeague.value)
+      }
     })
   }
 })
-
-const loadedData = ref([])
-const loadCall = ref(0)
-
-function onLoadMore() {
-  loadCall.value++
-  const x = 20 * loadCall.value
-  const y = x + 20
-  loadedData.value.push(...clubList.data.value.slice(x + 1, y))
-}
-
-function canLoadMore() {
-  // inidicate when there is no more content to load so onLoadMore stops triggering
-  // if (noMoreContent) return false
-  if (loadCall.value >= 3) return false
-  return true // for demo purposes
-}
 
 const searchQuery = ref('')
 
@@ -65,8 +52,9 @@ const handleInput = (event: Event) => {
 
 <template>
   <div v-if="clubList.isLoading.value">
-    <div class="pt-8 text-center">
-      <div class="animate-pulse skeleton h-12 w-72 rounded-xl mx-auto"></div>
+    <div class="pt-8 flex justify-center items-center gap-x-2">
+      <div class="animate-pulse skeleton h-12 w-72 rounded-xl"></div>
+      <div class="animate-pulse skeleton h-12 w-40 rounded-xl"></div>
     </div>
     <div :class="cardContainerClass">
       <div v-for="n in 16" :key="n">
@@ -80,23 +68,28 @@ const handleInput = (event: Event) => {
     </div>
   </div>
   <div v-else-if="clubList.data.value">
-    <div class="pt-8 text-center">
+    <div class="pt-8 text-center flex justify-center items-center gap-x-2">
       <label className="input input-lg rounded-xl border-none outline-none">
         <IconSearch />
         <input type="search" placeholder="Search" @input="handleInput" />
       </label>
+      <select
+        :defaultValue="selectedLeague"
+        className="select select-lg w-40 rounded-xl text-base border-none outline-none"
+      >
+        <option value="PL"><IconPremierLeague class="size-6" /> Premier League</option>
+        <option value="SA"><IconSerieA class="size-6" /> Serie A</option>
+        <option value="PD"><IconLaLiga class="size-6" /> La Liga</option>
+        <option value="BL1"><IconBundesliga class="size-6" /> Bundesliga</option>
+      </select>
     </div>
-    <div v-if="filteredData" :class="cardContainerClass">
-      <div v-for="club in filteredData" :key="club">
+    <div v-if="searchQuery != ''" :class="cardContainerClass">
+      <div v-for="club in filteredData" :key="club.id">
         <ClubCard :data="club" />
       </div>
     </div>
-    <div
-      v-else
-      v-infinite-scroll="[onLoadMore, { distance: 10, canLoadMore }]"
-      :class="cardContainerClass"
-    >
-      <div v-for="club in loadedData" :key="club">
+    <div v-else :class="cardContainerClass">
+      <div v-for="club in clubList.data.value" :key="club.id">
         <ClubCard :data="club" />
       </div>
     </div>

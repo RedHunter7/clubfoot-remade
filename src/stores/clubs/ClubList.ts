@@ -2,8 +2,10 @@ import { defineStore } from 'pinia'
 import axios from "axios"
 import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
+import type { Team } from '@/types';
 
-function shuffleArray(array: never[] | undefined[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function shuffleArray(array: any[]) {
   let currentIndex = array.length, randomIndex;
 
   // While there remain elements to shuffle.
@@ -22,11 +24,7 @@ function shuffleArray(array: never[] | undefined[]) {
 }
 
 export const useClubListStore = defineStore("ClubList", () => {
-  const leagues = ["PL", "SA", "PD", "BL1"]
-  // const leagues = ["PL"]
-  const callCount = ref(0);
-
-  const data = ref([]);
+  const data = ref<Team[]>([]);
   const isLoading = ref(true);
   const error = ref<string | null>(null)
 
@@ -34,43 +32,29 @@ export const useClubListStore = defineStore("ClubList", () => {
     data.value = []
   }
 
-  async function collectClubs(leagueCode: string): Promise<never[] | undefined> {
+  async function fetchClubList(leagueCode: string){
     try {
+      isLoading.value = true
+      error.value = null
+
       const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/teams`, {
         headers: {
           'X-Auth-Token': BASE_API.API_KEY,
         },
       })
 
-      return response.data.teams
+      const shuffledTeams = shuffleArray(response.data.teams)
+      data.value = shuffledTeams
 
     } catch (err) {
       if (err instanceof Error) {
         error.value = err.message
-        return undefined
         // console.log(error.value)
         //console.log(err)
       }
     } finally {
-      callCount.value = callCount.value + 1
-      if (callCount.value == leagues.length) {
-        isLoading.value = false
-      }
+      isLoading.value = false
     }
-  }
-
-  async function fetchClubList() {
-    callCount.value = 0
-    isLoading.value = true
-    error.value = null
-
-    leagues.forEach(async league => {
-        const result = await collectClubs(league);
-        if (result) {
-            data.value.push(...result);
-            shuffleArray(data.value)
-        }
-    });
   }
 
   return { data, isLoading, error, fetchClubList, resetClubList };

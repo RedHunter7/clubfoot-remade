@@ -1,17 +1,6 @@
 <script setup lang="ts">
+import type { Team } from '@/types'
 import { RouterLink } from 'vue-router'
-
-type Team = {
-  id: number
-  shortName: string
-  crest: string
-  runningCompetitions: [
-    {
-      name: string
-      type: string
-    },
-  ]
-}
 
 interface props {
   data: Team
