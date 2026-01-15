@@ -1,32 +1,36 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
-import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
 
 export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
-  const data = ref({
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+  const placeholder = {
     leagueTable: [],
     currentMatchday: 0,
     competition: {
-      name: '',
+      name: 'League',
       emblem: ''
     },
     area: {
       name: '',
       flag: ''
     },
-  });
+  }
+  const data = ref(placeholder);
   const isLoading = ref(true);
   const error = ref<string | null>(null)
 
   async function fetchLeagueStanding(leagueCode: string) {
     try {
+      data.value = placeholder
       isLoading.value = true
       error.value = null
       
-      const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/standings`, {
+      const response = await axios.get(`${apiUrl}/competitions/${leagueCode}/standings`, {
         headers: {
-          'X-Auth-Token': BASE_API.API_KEY,
+          'X-Auth-Token': apiKey,
         },
       })
   

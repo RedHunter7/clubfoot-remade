@@ -8,6 +8,7 @@ import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { computed, onMounted, watch } from 'vue'
 import { useClubMatchesStore } from '@/stores/clubs/ClubMatches'
+import { useSeoMeta } from '@unhead/vue'
 
 const clubDetailStore = useClubDetailStore()
 const clubDetail = storeToRefs(clubDetailStore)
@@ -106,6 +107,14 @@ const attackers = computed(() => {
       player.position == 'Right Winger' ||
       player.position == 'Centre-Forward',
   )
+})
+
+useSeoMeta({
+  title: () => `${clubDetail.data.value.name} | Club Foot`,
+  description: () => `${clubDetail.data.value.name} Profile includes Matches & Squad`,
+  ogTitle: () => `${clubDetail.data.value.name} | Club Foot`,
+  ogDescription: () => `${clubDetail.data.value.name} Profile includes Matches & Squad`,
+  ogImage: () => clubDetail.data.value.crest,
 })
 </script>
 

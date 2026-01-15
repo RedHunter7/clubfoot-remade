@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
-import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
 import type { Team } from '@/types';
 
@@ -24,6 +23,9 @@ function shuffleArray(array: any[]) {
 }
 
 export const useClubListStore = defineStore("ClubList", () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const data = ref<Team[]>([]);
   const isLoading = ref(true);
   const error = ref<string | null>(null)
@@ -37,9 +39,9 @@ export const useClubListStore = defineStore("ClubList", () => {
       isLoading.value = true
       error.value = null
 
-      const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/teams`, {
+      const response = await axios.get(`${apiUrl}/competitions/${leagueCode}/teams`, {
         headers: {
-          'X-Auth-Token': BASE_API.API_KEY,
+          'X-Auth-Token': apiKey,
         },
       })
 

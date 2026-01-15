@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
-import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
 
 export const useClubDetailStore = defineStore("ClubDetail", () => {
-  const data = ref({
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+  const placeholder = {
     id: 0,
-    name: '',
+    name: 'Club',
     crest: '',
     venue: '',
     runningCompetitions: [{
@@ -26,24 +28,27 @@ export const useClubDetailStore = defineStore("ClubDetail", () => {
       position: "Goalkeeper",
       nationality: "Spain"
     }]
-  });
+  }
+  const data = ref(placeholder);
 
   const isLoading = ref(true);
   const error = ref<string | null>(null)
 
   async function resetClubDetail() {
+    data.value = placeholder
     isLoading.value = true
     error.value = null
   }
 
   async function fetchClubDetail(clubId: string) {
     try {
+      data.value = placeholder
       isLoading.value = true
       error.value = null
       
-      const response = await axios.get(`${BASE_API.BASE_URL}/teams/${clubId}`, {
+      const response = await axios.get(`${apiUrl}/teams/${clubId}`, {
         headers: {
-          'X-Auth-Token': BASE_API.API_KEY,
+          'X-Auth-Token': apiKey,
         },
       })
   

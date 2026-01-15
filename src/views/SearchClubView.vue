@@ -11,6 +11,11 @@ import IconBundesliga from '@/components/icons/leagues/IconBundesliga.vue'
 import IconPremierLeague from '@/components/icons/leagues/IconPremierLeague.vue'
 import IconLaLiga from '@/components/icons/leagues/IconLaLiga.vue'
 import IconSerieA from '@/components/icons/leagues/IconSerieA.vue'
+import { useHead } from '@unhead/vue'
+
+useHead({
+  title: 'Search Club | Club Foot',
+})
 
 const cardContainerClass = 'flex flex-row flex-wrap justify-center gap-6 my-8 w-5/6 mx-auto'
 

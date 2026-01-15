@@ -13,6 +13,8 @@ import { storeToRefs } from 'pinia'
 import { onMounted, watch } from 'vue'
 import { useLeagueMatchesStore } from '@/stores/leagues/LeagueMatches'
 
+import { useSeoMeta } from '@unhead/vue'
+
 const config = {
   height: 200,
   itemsToShow: 1,
@@ -64,6 +66,14 @@ onMounted(() => {
     const currentMatchday = leagueStanding.data.value.currentMatchday
     leagueMatchesStore.fetchLeagueMatches(leagueCode, currentMatchday)
   })
+})
+
+useSeoMeta({
+  title: () => `${leagueStanding.data.value.competition.name} | Club Foot`,
+  description: () => `${leagueStanding.data.value.competition.name} Standings & Matches`,
+  ogTitle: () => `${leagueStanding.data.value.competition.name} | Club Foot`,
+  ogDescription: () => `${leagueStanding.data.value.competition.name} Standings & Matches`,
+  ogImage: () => leagueStanding.data.value.competition.emblem,
 })
 </script>
 

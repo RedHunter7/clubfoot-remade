@@ -16,7 +16,7 @@ const router = createRouter({
     {
       path: '/club',
       name: 'search-club',
-      component: () => import('../views/SearchClubView.vue'),
+      component: () => import('../views/SearchClubView.vue')
     },
     {
       path: '/club/:id',

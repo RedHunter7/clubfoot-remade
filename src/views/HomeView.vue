@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import HeroWithFigure from '@/components/HeroWithFigure.vue'
+import { useSeoMeta } from '@unhead/vue'
+
+useSeoMeta({
+  title: 'Home Page | Club Foot',
+  description: 'Find your favorite club on the 4 best football league in the world',
+  ogTitle: 'Club Foot',
+  ogDescription: 'Find your favorite club on the 4 best football league in the world',
+  // ogImage: 'https://example.com/image.jpg',
+})
 </script>
 
 <template>

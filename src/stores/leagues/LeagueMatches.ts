@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
-import BASE_API from '@/BaseApi'
 import { ref } from 'vue'
 
 export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const data = ref([]);
   const isLoading = ref(true);
   const error = ref<string | null>(null)
@@ -13,9 +15,9 @@ export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
       isLoading.value = true
       error.value = null
 
-      const response = await axios.get(`${BASE_API.BASE_URL}/competitions/${leagueCode}/matches?matchday=${matchday}`, {
+      const response = await axios.get(`${apiUrl}/competitions/${leagueCode}/matches?matchday=${matchday}`, {
         headers: {
-          'X-Auth-Token': BASE_API.API_KEY,
+          'X-Auth-Token': apiKey,
         },
       })
 
