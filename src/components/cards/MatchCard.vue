@@ -52,7 +52,7 @@ switch (props.data.status) {
       hour: '2-digit',
       minute: '2-digit',
     })
-    console.log(headerText)
+    // console.log(headerText)
     const daysDiff = getDayDifference(currentTime, scheduleTime)
     switch (daysDiff) {
       case 0:
