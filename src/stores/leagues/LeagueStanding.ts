@@ -1,11 +1,8 @@
 import { defineStore } from 'pinia'
-import axios from "axios"
 import { ref } from 'vue'
+import { createApi } from "@/api";
 
 export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const apiKey = import.meta.env.VITE_API_KEY;
-
   const placeholder = {
     leagueTable: [],
     currentMatchday: 0,
@@ -27,12 +24,10 @@ export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
       data.value = placeholder
       isLoading.value = true
       error.value = null
+
+      const api = createApi();
       
-      const response = await axios.get(`${apiUrl}/competitions/${leagueCode}/standings`, {
-        headers: {
-          'X-Auth-Token': apiKey,
-        },
-      })
+      const response = await api.get(`/competitions/${leagueCode}/standings`)
   
       data.value.leagueTable = response.data.standings[0].table
       data.value.currentMatchday = response.data.season.currentMatchday

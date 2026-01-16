@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import axios from "axios"
 import { ref } from 'vue'
 import type { Team } from '@/types';
+import { createApi } from '@/api';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function shuffleArray(array: any[]) {
@@ -23,9 +23,6 @@ function shuffleArray(array: any[]) {
 }
 
 export const useClubListStore = defineStore("ClubList", () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const apiKey = import.meta.env.VITE_API_KEY;
-
   const data = ref<Team[]>([]);
   const isLoading = ref(true);
   const error = ref<string | null>(null)
@@ -39,11 +36,8 @@ export const useClubListStore = defineStore("ClubList", () => {
       isLoading.value = true
       error.value = null
 
-      const response = await axios.get(`${apiUrl}/competitions/${leagueCode}/teams`, {
-        headers: {
-          'X-Auth-Token': apiKey,
-        },
-      })
+      const api = createApi();
+      const response = await api.get(`/competitions/${leagueCode}/teams`)
 
       const shuffledTeams = shuffleArray(response.data.teams)
       data.value = shuffledTeams
