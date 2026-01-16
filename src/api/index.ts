@@ -1,11 +1,14 @@
 import axios, { type AxiosInstance } from "axios";
 
 export function createApi(): AxiosInstance {
-    const apiUrl = import.meta.env.VITE_API_URL;
-    const apiKey = import.meta.env.VITE_API_KEY;
+    let apiUrl = "/.netlify/functions";
     
     let headers = {}
     if (import.meta.env.DEV) {
+        const apiKey = import.meta.env.VITE_API_KEY;
+        apiUrl = import.meta.env.VITE_API_URL;
+        
+
         headers = { 
             'X-Auth-Token': apiKey,
             "Content-Type": "application/json"
