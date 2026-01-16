@@ -15,13 +15,11 @@ export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
       const api = createApi();
 
       let apiUrl = `/competitions/${leagueCode}/matches?matchday=${matchday}`
-      let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = "/league-matches"
-        params = { leagueCode, matchday }
+        apiUrl = `/league-matches?league=${leagueCode}&matchday=${matchday}`
       }
 
-      const response = await api.get(apiUrl, params)
+      const response = await api.get(apiUrl)
 
       data.value = response.data.matches
 

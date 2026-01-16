@@ -39,13 +39,11 @@ export const useClubListStore = defineStore("ClubList", () => {
       const api = createApi();
 
       let apiUrl = `/competitions/${leagueCode}/teams`
-      let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = "/club-list"
-        params = { leagueCode }
+        apiUrl = `/club-list?league=${leagueCode}`
       }
       
-      const response = await api.get(apiUrl, params)
+      const response = await api.get(apiUrl)
 
       const shuffledTeams = shuffleArray(response.data.teams)
       data.value = shuffledTeams

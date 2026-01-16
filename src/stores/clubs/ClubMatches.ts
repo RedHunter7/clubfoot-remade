@@ -43,13 +43,11 @@ export const useClubMatchesStore = defineStore("ClubMatches", () => {
       const api = createApi();
 
       let apiUrl = `/teams/${clubId}/matches?status=${status}&limit=5`
-      let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = "/club-matches"
-        params = { clubId, status }
+        apiUrl = `/club-matches?club=${clubId}&status=${status}`
       }
 
-      const response = await api.get(apiUrl, params)
+      const response = await api.get(apiUrl)
   
       data.value.push(...response.data.matches)
       // console.log(data.value)

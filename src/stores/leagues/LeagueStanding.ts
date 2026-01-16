@@ -28,12 +28,10 @@ export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
       const api = createApi();
       
       let apiUrl = `/competitions/${leagueCode}/standings`
-      let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = '/league-standing'
-        params = { leagueCode }
+        apiUrl = `/league-standing?league=${leagueCode}`
       }
-      const response = await api.get(apiUrl, params)
+      const response = await api.get(apiUrl)
   
       data.value.leagueTable = response.data.standings[0].table
       data.value.currentMatchday = response.data.season.currentMatchday
