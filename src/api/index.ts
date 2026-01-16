@@ -1,7 +1,7 @@
 import axios, { type AxiosInstance } from "axios";
 
 export function createApi(): AxiosInstance {
-    let apiUrl = "/netlify/functions";
+    let apiUrl = "/.netlify/functions";
     
     let headers = {}
     if (import.meta.env.DEV) {

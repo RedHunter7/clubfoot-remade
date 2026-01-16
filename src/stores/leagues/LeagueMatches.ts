@@ -17,7 +17,7 @@ export const useLeagueMatchesStore = defineStore("LeagueMatches", () => {
       let apiUrl = `/competitions/${leagueCode}/matches?matchday=${matchday}`
       let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = "/league/matches"
+        apiUrl = "/league-matches"
         params = { leagueCode, matchday }
       }
 

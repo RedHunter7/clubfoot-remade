@@ -30,7 +30,7 @@ export const useLeagueStandingStore = defineStore("LeagueStanding", () => {
       let apiUrl = `/competitions/${leagueCode}/standings`
       let params = {}
       if (import.meta.env.PROD) {
-        apiUrl = '/league/standing'
+        apiUrl = '/league-standing'
         params = { leagueCode }
       }
       const response = await api.get(apiUrl, params)
