@@ -6,13 +6,10 @@ dotenv.config()
 export const handler: Handler = async (event) => {
   try {
     // ✅ Read league from query string
-    const leagueCode = event.queryStringParameters?.league ?? "PL";
-
-    // ✅ Read matchday from query string
-    const matchday = event.queryStringParameters?.matchday ?? 1;
+    const clubId = event.queryStringParameters?.club ?? 1;
 
     const response = await fetch(
-      `${process.env.FOOTBALL_DATA_URL}/competitions/${leagueCode}/matches?matchday=${matchday}`,
+      `${process.env.FOOTBALL_DATA_URL}/teams/${clubId}`,
       {
         headers: {
           "X-Auth-Token": process.env.FOOTBALL_DATA_TOKEN as string,
@@ -25,8 +22,7 @@ export const handler: Handler = async (event) => {
         statusCode: response.status,
         body: JSON.stringify({
           error: "Failed to fetch data",
-          leagueCode,
-          matchday,
+          clubId,
           status: response.status,
         }),
       };

@@ -8,11 +8,8 @@ export const handler: Handler = async (event) => {
     // ✅ Read league from query string
     const leagueCode = event.queryStringParameters?.league ?? "PL";
 
-    // ✅ Read matchday from query string
-    const matchday = event.queryStringParameters?.matchday ?? 1;
-
     const response = await fetch(
-      `${process.env.FOOTBALL_DATA_URL}/competitions/${leagueCode}/matches?matchday=${matchday}`,
+      `${process.env.FOOTBALL_DATA_URL}/competitions/${leagueCode}/teams`,
       {
         headers: {
           "X-Auth-Token": process.env.FOOTBALL_DATA_TOKEN as string,
@@ -26,7 +23,6 @@ export const handler: Handler = async (event) => {
         body: JSON.stringify({
           error: "Failed to fetch data",
           leagueCode,
-          matchday,
           status: response.status,
         }),
       };
