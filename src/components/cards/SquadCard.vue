@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { countryToAlpha2 } from 'country-to-iso'
+import countries from 'i18n-iso-countries'
+import en from 'i18n-iso-countries/langs/en.json'
+
+countries.registerLocale(en)
 
 type Coach = {
   id: number
@@ -20,7 +23,7 @@ interface props {
 
 const props = defineProps<props>()
 
-const flagCode = countryToAlpha2(props.data.nationality)
+const flagCode = countries.getAlpha2Code(props.data.nationality, 'en') ?? 'GB'
 // console.log(flagCode)
 </script>
 

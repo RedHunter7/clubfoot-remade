@@ -1,12 +1,12 @@
 import axios, { type AxiosInstance } from "axios";
 
 export function createApi(): AxiosInstance {
-    const apiUrl = "/.netlify/functions";
+    let apiUrl = "/.netlify/functions";
     
     let headers = {}
     if (import.meta.env.DEV) {
         const apiKey = import.meta.env.VITE_API_KEY;
-        // apiUrl = import.meta.env.VITE_API_URL;
+        apiUrl = import.meta.env.VITE_API_URL;
         
 
         headers = { 
