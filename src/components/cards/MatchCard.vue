@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import getDayDifference from '@/functions/GetDayDifference'
+import { getImageUrl } from '@/functions/GetImageUrl'
 
 type Match = {
   id: number
@@ -71,12 +72,26 @@ switch (props.data.status) {
     <div class="font-bold text-lg">{{ headerText }}</div>
     <div class="flex flex-row mt-3 gap-x-1 flex flex-row justify-center items-center gap-x-6">
       <div class="flex flex-col gap-y-2">
-        <img :src="props.data.homeTeam.crest" alt="" class="size-16 lg:size-24 mx-auto" />
+        <img
+          v-lazy="props.data.homeTeam.crest"
+          :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+          :alt="`${props.data.homeTeam.shortName} (Home Team) Crest`"
+          class="size-16 lg:size-24 mx-auto"
+          width="96"
+          height="96"
+        />
         <div class="text-sm">{{ props.data.homeTeam.shortName }}</div>
       </div>
       <div class="text-3xl font-bold">{{ middleText }}</div>
       <div class="flex flex-col gap-y-2">
-        <img :src="props.data.awayTeam.crest" alt="" class="size-16 lg:size-24 mx-auto" />
+        <img
+          v-lazy="props.data.awayTeam.crest"
+          :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+          :alt="`${props.data.homeTeam.shortName} (Away Team) Crest`"
+          class="size-16 lg:size-24 mx-auto"
+          width="96"
+          height="96"
+        />
         <div class="text-sm">{{ props.data.awayTeam.shortName }}</div>
       </div>
     </div>

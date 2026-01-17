@@ -6,6 +6,7 @@ import { createHead } from '@unhead/vue/client'
 
 import App from './App.vue'
 import router from './router'
+import lazy from './directives/lazy'
 
 const app = createApp(App)
 
@@ -15,5 +16,6 @@ app.use(router)
 const head = createHead()
 app.use(head)
 
+app.directive('lazy', lazy)
 app.mount('#app')
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getImageUrl } from '@/functions/GetImageUrl'
 import { RouterLink } from 'vue-router'
 
 const rows = []
@@ -53,7 +54,8 @@ const props = defineProps({
           <th>{{ club.position }}</th>
           <td class="flex flex-row gap-x-3 items-center">
             <img
-              :src="club.team.crest"
+              v-lazy="club.team.crest"
+              :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
               :alt="`${club.team.shortName} Crest`"
               class="size-5"
               width="20"

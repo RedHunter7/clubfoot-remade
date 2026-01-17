@@ -34,7 +34,13 @@ const flagCode = countries.getAlpha2Code(props.data.nationality, 'en') ?? 'GB'
     <div class="text-xl">{{ props.data.name }}</div>
     <div class="flex flex-row justify-center gap-x-2">
       <div class="font-normal">{{ props.data.nationality }}</div>
-      <img :src="`https://flagsapi.com/${flagCode}/shiny/24.png`" />
+      <img
+        v-lazy="`https://flagsapi.com/${flagCode}/shiny/24.png`"
+        src="https://placehold.co/24x16/086972/a7ff83?text=%3E(0)%3C"
+        :alt="`${props.data.name} Nationality Flag`"
+        width="24"
+        height="16"
+      />
     </div>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getImageUrl } from '@/functions/GetImageUrl'
 import type { Team } from '@/types'
 import { RouterLink } from 'vue-router'
 
@@ -19,10 +20,17 @@ props.data.runningCompetitions.forEach((competition) => {
 <template>
   <RouterLink
     :to="`/club/${props.data.id}`"
-    class="h-40 w-48 bg-base-100 rounded-2xl px-2 py-3 text-center flex flex-col justify-between hover:bg-secondary hover:text-white"
+    class="h-40 w-48 bg-base-100 rounded-2xl px-2 py-3 text-black text-center flex flex-col justify-between hover:bg-secondary hover:text-white"
   >
     <div class="text-base">{{ leagueName }}</div>
-    <img :src="props.data.crest" class="fill-white size-20 mx-auto" srcset="" />
+    <img
+      v-lazy="props.data.crest"
+      :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+      width="80"
+      height="80"
+      class="fill-white size-20 mx-auto"
+      srcset=""
+    />
     <div>{{ props.data.shortName }}</div>
   </RouterLink>
 </template>

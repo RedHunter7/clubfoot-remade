@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { getImageUrl } from '@/functions/GetImageUrl'
+
 const props = defineProps({
   header: {
     type: String,
@@ -24,10 +26,6 @@ const props = defineProps({
     },
   },
 })
-
-function getImageUrl(name: string, ext: string) {
-  return new URL(`../assets/images/${name}.${ext}`, import.meta.url).href
-}
 </script>
 
 <template>
@@ -40,7 +38,11 @@ function getImageUrl(name: string, ext: string) {
       }"
     >
       <img
-        :src="getImageUrl(props.imageName, 'png')"
+        v-lazy="getImageUrl(props.imageName, 'png')"
+        src="https://placehold.co/360x240/3f9441/FFF?text=%3E(0)%3C"
+        :alt="`${props.header} Hero`"
+        width="380"
+        height="260"
         class="w-xs lg:w-sm rounded-xl object-scale-down"
         :class="`bg-white/${props.imageBgOpacity}`"
       />

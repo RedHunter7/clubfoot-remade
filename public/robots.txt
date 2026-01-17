@@ -1,0 +1,6 @@
+# Allow all crawlers access to all pages
+User-agent: *
+Allow: /
+
+# Optionally, specify the location of your sitemap
+Sitemap: https://club-foot.netlify.app/

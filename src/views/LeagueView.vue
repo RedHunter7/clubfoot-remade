@@ -93,7 +93,11 @@ useSeoMeta({
           </div>
           <img
             v-else-if="leagueStanding.data.value"
-            :src="leagueStanding.data.value.competition.emblem"
+            v-lazy="leagueStanding.data.value.competition.emblem"
+            src="https://placehold.co/80x80/fff/000?text=%3E(0)%3C"
+            :alt="`${leagueStanding.data.value.competition.name} Emblem`"
+            width="160"
+            height="160"
             class="fill-white size-20 md:size-40 mx-auto my-2 md:my-4"
             srcset=""
           />
@@ -110,7 +114,11 @@ useSeoMeta({
           <div v-else-if="leagueStanding.data.value">
             <div>{{ leagueStanding.data.value.competition.name }}</div>
             <img
-              :src="leagueStanding.data.value.area.flag"
+              v-lazy="leagueStanding.data.value.area.flag"
+              src="https://placehold.co/256x155/086972/a7ff83?text=%3E(0)%3C"
+              :alt="`${leagueStanding.data.value.area.name} Flag`"
+              width="256"
+              height="155"
               class="fill-white w-32 md:w-64 mx-auto my-2 md:my-4 border-2 border-secondary"
               srcset=""
             />

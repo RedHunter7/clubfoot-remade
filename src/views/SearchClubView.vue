@@ -83,13 +83,13 @@ onMounted(() => {
   </div>
   <div v-else-if="clubList.data.value">
     <div class="pt-8 text-center flex flex-wrap justify-center items-center gap-x-2 gap-y-4">
-      <label className="input input-lg rounded-xl border-none outline-none">
+      <label className="input input-lg rounded-xl border-none outline-none text-black">
         <IconSearch />
         <input type="search" placeholder="Search" @input="handleInput" />
       </label>
       <select
         v-model="selectedLeague"
-        className="select select-lg w-40 rounded-xl text-base border-none outline-none"
+        className="select select-lg w-40 rounded-xl text-black text-base border-none outline-none"
       >
         <option value="PL"><IconPremierLeague class="size-6" /> Premier League</option>
         <option value="SA"><IconSerieA class="size-6" /> Serie A</option>

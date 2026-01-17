@@ -9,6 +9,7 @@ import { useRoute } from 'vue-router'
 import { computed, onMounted, watch } from 'vue'
 import { useClubMatchesStore } from '@/stores/clubs/ClubMatches'
 import { useSeoMeta } from '@unhead/vue'
+import { getImageUrl } from '@/functions/GetImageUrl'
 
 const clubDetailStore = useClubDetailStore()
 const clubDetail = storeToRefs(clubDetailStore)
@@ -120,7 +121,7 @@ useSeoMeta({
 
 <template>
   <div class="w-11/12 mx-auto">
-    <div class="flex flex-col sm:flex-row">
+    <div class="flex flex-col sm:flex-row text-black">
       <div
         v-if="clubDetail.isLoading.value"
         class="w-full sm:w-3/10 my-6 h-56 sm:h-110 skeleton animate-pulse rounded-2xl"
@@ -142,7 +143,10 @@ useSeoMeta({
         >
           <div class="flex sm:flex-col justify-center items-center gap-x-4">
             <img
-              :src="clubDetail.data.value.crest"
+              v-lazy="clubDetail.data.value.crest"
+              :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+              width="128"
+              height="128"
               class="fill-white size-24 sm:size-32 sm:mx-auto"
               srcset=""
             />

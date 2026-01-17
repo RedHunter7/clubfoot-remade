@@ -32,6 +32,7 @@ const closeDropdown = (event: Event) => {
 }
 
 const handleBackButton = () => {
+  isSidebarActive.value = false
   router.back()
 }
 
