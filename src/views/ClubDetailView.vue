@@ -124,11 +124,11 @@ useSeoMeta({
     <div class="flex flex-col sm:flex-row text-black">
       <div
         v-if="clubDetail.isLoading.value"
-        class="w-full sm:w-3/10 my-6 h-56 sm:h-110 skeleton animate-pulse rounded-2xl"
+        class="w-full sm:w-3/10 my-6 h-64 sm:h-110 skeleton animate-pulse rounded-2xl"
       ></div>
       <div
         v-else-if="clubDetail.error.value"
-        class="w-full sm:w-3/10 my-6 h-56 sm:h-110 bg-base-100/80 rounded-2xl relative"
+        class="w-full sm:w-3/10 my-6 h-64 sm:h-110 bg-base-100/80 rounded-2xl relative"
       >
         <div class="absolute top-1/2 left-1/2 -translate-1/2">
           <ErrorMessage :message="clubDetail.error.value" />
@@ -157,9 +157,9 @@ useSeoMeta({
               </div>
             </div>
           </div>
-          <div class="flex sm:flex-col justify-evenly items-center">
+          <div class="flex flex-col justify-evenly items-center mt-2 sm:mt-0">
             <div>
-              <div class="font-bold sm:text-xl">{{ clubDetail.data.value.venue }}</div>
+              <div class="font-bold sm:text-lg">{{ clubDetail.data.value.venue }}</div>
               <div class="text-sm sm:text-lg">Venue</div>
             </div>
             <div class="mt-4">

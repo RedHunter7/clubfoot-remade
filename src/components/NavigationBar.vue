@@ -75,10 +75,16 @@ watch(
         v-if="currentRouteName == 'club-detail'"
         :to="`/club/${route.params.id}`"
         class="btn btn-ghost text-2xl md:text-3xl font-title"
+        :class="{ 'disabled-link': isSidebarActive }"
       >
         Club Detail
       </RouterLink>
-      <RouterLink v-else to="/" class="btn btn-ghost text-2xl md:text-3xl font-title">
+      <RouterLink
+        v-else
+        to="/"
+        class="btn btn-ghost text-2xl md:text-3xl font-title"
+        :class="{ 'disabled-link': isSidebarActive }"
+      >
         CLUB FOOT
       </RouterLink>
     </div>

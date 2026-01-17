@@ -27,3 +27,10 @@ html {
   --vc-nav-width: 60px;
   --vc-nav-height: 60px;
 }
+
+.disabled-link {
+  pointer-events: none; /* Prevents clicks */
+  cursor: not-allowed; /* Changes cursor to "not-allowed" */
+  opacity: 0.5; /* Visually dims the link */
+  text-decoration: none; /* Removes underline if desired */
+}
