@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getImageUrl } from '@/functions/GetImageUrl'
 import type { Team } from '@/types'
 import { RouterLink } from 'vue-router'
 
@@ -25,7 +24,7 @@ props.data.runningCompetitions.forEach((competition) => {
     <div class="text-base">{{ leagueName }}</div>
     <img
       v-lazy="props.data.crest"
-      :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+      src="https://placehold.co/240x240/c82586/4eeaf6?text=%3E(0)%3C\n%3E(0)%3C"
       width="80"
       height="80"
       class="fill-white size-20 mx-auto"

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getImageUrl } from '@/functions/GetImageUrl'
 import { RouterLink } from 'vue-router'
 
 const rows = []
@@ -55,7 +54,7 @@ const props = defineProps({
           <td class="flex flex-row gap-x-3 items-center">
             <img
               v-lazy="club.team.crest"
-              :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+              src="https://placehold.co/240x240/c82586/4eeaf6?text=%3E(0)%3C\n%3E(0)%3C"
               :alt="`${club.team.shortName} Crest`"
               class="size-5"
               width="20"

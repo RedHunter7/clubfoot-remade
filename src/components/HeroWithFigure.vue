@@ -39,7 +39,7 @@ const props = defineProps({
     >
       <img
         v-lazy="getImageUrl(props.imageName, 'png')"
-        src="https://placehold.co/360x240/3f9441/FFF?text=%3E(0)%3C"
+        src="https://placehold.co/360x240/transparent/FFF?text=%3E(0)%3C"
         :alt="`${props.header} Hero`"
         width="380"
         height="260"

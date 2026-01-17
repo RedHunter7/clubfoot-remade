@@ -8,7 +8,7 @@ import IconClose from './icons/IconClose.vue'
 import IconArrowLeft from './icons/IconArrowLeft.vue'
 // import IconSave from './icons/IconSave.vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -37,6 +37,13 @@ const handleBackButton = () => {
 }
 
 // const handleSaveClick = () => {}
+
+watch(
+  () => route.path,
+  () => {
+    isSidebarActive.value = false
+  },
+)
 </script>
 
 <template>

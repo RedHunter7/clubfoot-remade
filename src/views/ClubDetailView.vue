@@ -144,7 +144,7 @@ useSeoMeta({
           <div class="flex sm:flex-col justify-center items-center gap-x-4">
             <img
               v-lazy="clubDetail.data.value.crest"
-              :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+              :src="getImageUrl('custom-club', 'svg')"
               width="128"
               height="128"
               class="fill-white size-24 sm:size-32 sm:mx-auto"
@@ -159,11 +159,11 @@ useSeoMeta({
           </div>
           <div class="flex sm:flex-col justify-evenly items-center">
             <div>
-              <div class="font-bold text-xl">{{ clubDetail.data.value.venue }}</div>
-              <div class="text-base sm:text-lg">Venue</div>
+              <div class="font-bold sm:text-xl">{{ clubDetail.data.value.venue }}</div>
+              <div class="text-sm sm:text-lg">Venue</div>
             </div>
             <div class="mt-4">
-              <div class="font-bold text-lg">
+              <div class="font-bold sm:text-lg">
                 {{ continentalCompetition?.name || '-' }}
               </div>
               <div class="text-sm lg:text-lg">Continental Competition</div>

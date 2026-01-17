@@ -94,7 +94,7 @@ useSeoMeta({
           <img
             v-else-if="leagueStanding.data.value"
             v-lazy="leagueStanding.data.value.competition.emblem"
-            src="https://placehold.co/80x80/fff/000?text=%3E(0)%3C"
+            src="https://placehold.co/80x80/transparent/000?text=%3E(0)%3C"
             :alt="`${leagueStanding.data.value.competition.name} Emblem`"
             width="160"
             height="160"

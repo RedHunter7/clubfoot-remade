@@ -74,7 +74,7 @@ switch (props.data.status) {
       <div class="flex flex-col gap-y-2">
         <img
           v-lazy="props.data.homeTeam.crest"
-          :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+          :src="getImageUrl('custom-club', 'svg')"
           :alt="`${props.data.homeTeam.shortName} (Home Team) Crest`"
           class="size-16 lg:size-24 mx-auto"
           width="96"
@@ -86,7 +86,7 @@ switch (props.data.status) {
       <div class="flex flex-col gap-y-2">
         <img
           v-lazy="props.data.awayTeam.crest"
-          :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+          :src="getImageUrl('custom-club', 'svg')"
           :alt="`${props.data.homeTeam.shortName} (Away Team) Crest`"
           class="size-16 lg:size-24 mx-auto"
           width="96"

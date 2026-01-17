@@ -81,7 +81,7 @@ if (props.data.status == 'TIMED') {
       <div>{{ props.data.homeTeam.shortName }}</div>
       <img
         v-lazy="props.data.homeTeam.crest"
-        :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+        :src="getImageUrl('custom-club', 'svg')"
         width="96"
         height="96"
         class="fill-white size-16 sm:size-18 lg:size-24 mx-auto my-2"
@@ -92,7 +92,7 @@ if (props.data.status == 'TIMED') {
       <div>{{ props.data.awayTeam.shortName }}</div>
       <img
         v-lazy="props.data.awayTeam.crest"
-        :src="getImageUrl('@/assets/custom-club.svg', 'svg')"
+        :src="getImageUrl('custom-club', 'svg')"
         width="96"
         height="96"
         class="fill-white size-16 sm:size-18 lg:size-24 mx-auto my-2"
