@@ -5,11 +5,15 @@ import IconLaLiga from './icons/leagues/IconLaLiga.vue'
 import IconBundesliga from './icons/leagues/IconBundesliga.vue'
 import IconSearch from './icons/IconSearch.vue'
 // import IconSave from './icons/IconSave.vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const navigateTo = (pathName: string) => {
+  if (route.path === pathName) {
+    router.go(0)
+  }
   router.push({ path: pathName })
 }
 </script>
